@@ -3,7 +3,7 @@ name: CI
 on:
   push:
       paths:
-        - qbittorrent-ee-rpi/*
+        - qbittorrent-ee/*
         - xware-rpi/*
 
 
@@ -14,4 +14,4 @@ jobs:
             - name: Checkout
               uses: actions/checkout@v2
             - name: Vaild
-              run: docker build -t test_build_qbittorrent ./qbittorrent-ee-rpi
+              run: docker build ./qbittorrent-ee

@@ -5,29 +5,34 @@ on:
         branches:
             - master
         paths:
-            - qbittorrent-ee-rpi/*
-            - .github/workflows/qbittorrent-buildx.yml
+            - qbittorrent-ee/*
+            - .github/workflows/qbittorrent.yml
 
 env:
-    REPO_NAME: ly0007/qbittorrent-ee-rpi
+    REPO_NAME: ly0007/qbittorrent-ee
 
 jobs:
-    arm:
+    BuildX:
         runs-on: ubuntu-latest
 
         steps:
             - name: Checkout
               uses: actions/checkout@v2
-            - name: Setup Buildx
+            - name: Setup BuildX
               uses: crazy-max/ghaction-docker-buildx@v1
               with:
                 version: latest
             - name: Login
               run: docker login -u ${{secrets.DOCKER_ID}} -p ${{secrets.DOCKER_PWD}}
-            - name: Build & Push
+            - name: Build arm & Push
               run: docker buildx build 
-               --platform=linux/arm/v7,linux/arm64
+               --platform=linux/arm/v6,linux/arm/v7,linux/arm64
                --tag $REPO_NAME:latest 
                --push
                ./qbittorrent-ee-rpi
-                
+            - name: Build x86 & Push
+              run: docker buildx build 
+               --platform=linux/386,linux/amd64
+               --tag $REPO_NAME:latest 
+               --push
+               ./qbittorrent-ee-rpi
