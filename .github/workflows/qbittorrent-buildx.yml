@@ -21,6 +21,6 @@ jobs:
                 version: latest
             - name: Build Image
               run: docker buildx build 
-               --platform=linux/arm/v7, linux/arm64, linux/amd64 
+               --platform=linux/arm/v7,linux/arm64,linux/amd64 
                --tag ly0007/qbittorrent-ee-rpi:latest 
                ./qbittorrent-ee-rpi
