@@ -11,11 +11,11 @@ on:
 
 jobs:
     test:
-        run-on: ubuntu-latest
+        runs-on: ubuntu-latest
         steps:
             - name: Checkout
               uses: actions/checkout@v2
-            - name: Test Dockerfile
+            - name: Vaild Image
               run: docker build -t qbittorrent-ee:test ./qbittorrent-ee-rpi
     build:
         runs-on: ubuntu-latest
