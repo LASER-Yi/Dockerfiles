@@ -1,17 +1,17 @@
-FROM alpine as compilerOS
+FROM alpine:latest as compilerOS
 
 COPY buildfs /
 
 RUN apk add --no-cache ca-certificates make g++ gcc qt5-qtsvg-dev boost-dev qt5-qttools-dev file curl \
 &&  /download.sh && mkdir /qbtorrent \
-&&  tar -zxvf /libtorrent.tar.gz -C /qbtorrent \
+&&  tar -zxf /libtorrent.tar.gz -C /qbtorrent \
 &&  cd /qbtorrent \
 &&  mv $(find . -name libtorrent-*) libtorrent \
 &&  cd libtorrent \
 &&  ./configure --disable-debug --enable-encryption CXXFLAGS="-std=c++14" \
 &&  make -j$(nproc) install-strip
 # qBittorrent-Enhanced-Edition
-RUN  unzip /qbitttorrent-ee.zip -d /qbtorrent \
+RUN  unzip -q /qbitttorrent-ee.zip -d /qbtorrent \
 &&   cd  /qbtorrent \
 &&   mv $(find . -name qBittorrent-*) qbittorrent-ee \
 &&   cd  qbittorrent-ee \
@@ -38,15 +38,9 @@ COPY --from=compilerOS  /qbittorrent  /
 RUN apk add --no-cache ca-certificates \
 &&  rm -rf /var/cache/apk/* \
 %%  rm -rf /tmp/* \
-&&  chmod a+x  /usr/local/bin/qbittorrent-nox /usr/bin/entrypoint.sh \
-# configurate running env
-&&  addgroup -g ${GID} qbittorrent \
-&&  adduser -h /config -s /bin/sh -G qbittorrent -D -u ${UID} qbittorrent \
-&&  chown -R qbittorrent:qbittorrent /config \
-&&  chown -R qbittorrent:qbittorrent /downloads
+&&  chmod a+x  /usr/local/bin/qbittorrent-nox /usr/bin/entrypoint.sh
 
 VOLUME /downloads /config
 EXPOSE $WEBUI_PORT  $PEER_PORT  $PEER_PORT/udp
 
-USER qbittorrent
 ENTRYPOINT [ "/usr/bin/entrypoint.sh" ]
