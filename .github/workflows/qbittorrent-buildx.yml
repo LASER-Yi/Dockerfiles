@@ -1,16 +1,20 @@
-name: Build Multiarch qBittorrent
+name: Build qBittorrent with BuildKit
 
 on:
     push:
         branches:
             - master
         paths:
-            - qbittorrent-ee-rpi/
+            - qbittorrent-ee-rpi/*
             - .github/workflows/qbittorrent-buildx.yml
+
+env:
+    REPO_NAME: ly0007/qbittorrent-ee-rpi
 
 jobs:
     main:
         runs-on: ubuntu-latest
+
         steps:
             - name: Checkout
               uses: actions/checkout@v2
@@ -18,8 +22,12 @@ jobs:
               uses: crazy-max/ghaction-docker-buildx@v1
               with:
                 version: latest
-            - name: Build Image
+            - name: Login
+              run: docker login -u {{secrets.DOCKER_ID}} -p {{secrets.DOCKER_PASSWORD}}
+            - name: Build & Push
               run: docker buildx build 
                --platform=linux/arm/v7,linux/arm64
-               --tag ly0007/qbittorrent-ee-rpi:latest 
+               --tag $REPO_NAME:latest 
+               --push
                ./qbittorrent-ee-rpi
+                

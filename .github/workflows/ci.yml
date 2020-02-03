@@ -1,6 +1,6 @@
-name: Dockerfile CI
+name: CI
 
-on: [push]
+on: [push, pull_request]
 
 jobs: 
     qbittorrent:
@@ -9,4 +9,4 @@ jobs:
             - name: Checkout
               uses: actions/checkout@v2
             - name: Vaild
-              run: docker build -t qbittorrent-ee:test ./qbittorrent-ee-rpi
+              run: docker build -t test_build_qbittorrent ./qbittorrent-ee-rpi
