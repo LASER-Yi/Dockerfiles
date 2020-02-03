@@ -5,13 +5,15 @@ COPY buildfs /
 RUN apk add --no-cache ca-certificates make g++ gcc qt5-qtsvg-dev boost-dev qt5-qttools-dev file curl \
 &&  /download.sh && mkdir /qbtorrent \
 &&  tar -zxvf  /libtorrent.tar.gz -C /qbtorrent \
-&&  cd  /qbtorrent/libtorrent \
+&&  cd  /qbtorrent \
+&&  &&   mv $(find . -name libtorrent-*) libtorrent \
+&&  cd  libtorrent \
 &&  ./configure --disable-debug --enable-encryption CXXFLAGS="-std=c++14" \
 &&  make -j$(nproc) install-strip
 # qBittorrent-Enhanced-Edition
 RUN  unzip /qbitttorrent-ee.zip -d /qbtorrent \
 &&   cd  /qbtorrent \
-&&   mv $(find . -name qBittorrent*) qbittorrent-ee \
+&&   mv $(find . -name qBittorrent-*) qbittorrent-ee \
 &&   cd  qbittorrent-ee \
 &&   ./configure   --disable-gui \
 &&   make -j$(nproc) install \
