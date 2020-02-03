@@ -9,7 +9,7 @@ on:
 
 
 jobs:
-    main:
+    build:
         runs-on: ubuntu-latest
         steps:
             - name: Checkout
@@ -20,6 +20,6 @@ jobs:
                 version: latest
             - name: Build Image
               run: docker buildx build \
-              --platform=linux/arm/v7, linux/arm64, linux/amd64 \
-              --file ./qbittorrent-ee-rpi/Dockerfile \
-              --tag ly0007/qbittorrent-ee-rpi:latest
+               --platform=linux/arm/v7, linux/arm64, linux/amd64 \
+               --file ./qbittorrent-ee-rpi/Dockerfile \
+               --tag ly0007/qbittorrent-ee-rpi:latest
