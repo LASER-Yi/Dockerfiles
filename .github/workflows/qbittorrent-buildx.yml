@@ -1,4 +1,4 @@
-name: Build qBittorrent with BuildKit
+name: qBittorrent
 
 on:
     push:
