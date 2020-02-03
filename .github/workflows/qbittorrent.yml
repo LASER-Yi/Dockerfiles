@@ -24,14 +24,9 @@ jobs:
                 version: latest
             - name: Login
               run: docker login -u ${{secrets.DOCKER_ID}} -p ${{secrets.DOCKER_PWD}}
-            - name: Build x86 & Push
-              run: docker build
-               --tag $REPO_NAME:latest 
-               --push
-               ./qbittorrent-ee
-            - name: Build arm & Push
+            - name: Build & Push
               run: docker buildx build 
-               --platform=linux/arm/v6,linux/arm/v7,linux/arm64
+               --platform=linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,
                --tag $REPO_NAME:latest 
                --push
                ./qbittorrent-ee
