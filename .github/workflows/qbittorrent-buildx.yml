@@ -6,6 +6,7 @@ on:
             - master
         paths:
             - qbittorrent-ee-rpi/
+            - .github/workflows/qbittorrent-buildx.yml
 
 
 jobs:
