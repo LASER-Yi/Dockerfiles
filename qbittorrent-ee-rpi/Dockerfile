@@ -1,51 +1,50 @@
 FROM alpine as compilerOS
 
-#compiling qB
+COPY buildfs /
 
-ARG LIBTORRENT_VER=1.2.3
-ARG BTORRENT_VER=4.2.1.10
-
-RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.tuna.tsinghua.edu.cn/g' /etc/apk/repositories \
-&& apk add --no-cache ca-certificates make g++ gcc qt5-qtsvg-dev boost-dev qt5-qttools-dev file git
-
-ADD libtorrent-rasterbar-${LIBTORRENT_VER}.tar.gz \qbtorrent
-
-# RUN   wget -P /qbtorrent https://github.com/arvidn/libtorrent/releases/download/libtorrent-rasterbar-${LIBTORRENT_VER}.tar.gz \
-# &&   tar  -zxvf  /qbtorrent/libtorrent-rasterbar-${LIBTORRENT_VER}.tar.gz   -C    /qbtorrent  \
-RUN   cd  /qbtorrent/libtorrent-rasterbar-${LIBTORRENT_VER} \
-&&   ./configure --disable-debug --enable-encryption CXXFLAGS="-std=c++14"\
-&&   make -j2 install-strip
-
-
-#qBittorrent-Enhanced-Edition
-
-ADD release-4.2.1.10.zip /qbtorrent
-
-# RUN  wget  -P /qbtorrent https://github.com/c0re100/qBittorrent-Enhanced-Edition/archive/release-4.2.1.10.zip   \
-RUN  cd  /qbtorrent/qBittorrent-Enhanced-Edition-release-${BTORRENT_VER} \
+RUN apk add --no-cache ca-certificates make g++ gcc qt5-qtsvg-dev boost-dev qt5-qttools-dev file \
+&& /download.sh && mkdir /qbtorrent \
+&& tar -zxvf  /libtorrent-rasterbar-${LIBTORRENT_VER}.tar.gz -C /qbtorrent \
+&&  cd  /qbtorrent/libtorrent-rasterbar-${LIBTORRENT_VER} \
+&&  ./configure --disable-debug --enable-encryption CXXFLAGS="-std=c++14" \
+&&  make -j$(nproc) install-strip
+# qBittorrent-Enhanced-Edition
+RUN  unzip /qbitttorrent-ee.zip -d /qbtorrent \
+&&   cd  /qbtorrent \
+&&   mv $(find . -name qBittorrent*) qbittorrent-ee \
+&&   cd  qbittorrent-ee \
 &&   ./configure   --disable-gui \
-&&   make -j2 install \
+&&   make -j$(nproc) install \
 &&   ldd /usr/local/bin/qbittorrent-nox   |cut -d ">" -f 2|grep lib|cut -d "(" -f 1|xargs tar -chvf /qbtorrent/qbittorrent.tar  \
 &&   mkdir /qbittorrent   \
 &&   tar  -xvf /qbtorrent/qbittorrent.tar   -C  /qbittorrent   \
 &&   cp --parents /usr/local/bin/qbittorrent-nox  /qbittorrent
- 
 
- # RunOS
+
+# RunOS
 FROM alpine:latest
 
-ENV TZ=Asia/Shanghai
-ENV WEBUIPORT=8989
+ENV WEBUI_PORT=8989
+ENV PEER_PORT=6881
+ENV UID 1000
+ENV GID 1000
 
-COPY root /
+COPY rootfs /
 COPY --from=compilerOS  /qbittorrent  /
 
 # install dependance
-RUN  apk add --no-cache bash curl ca-certificates tzdata \
-&&   rm -rf /var/cache/apk/*   \
-&&   chmod a+x  /usr/local/bin/qbittorrent-nox
+RUN apk add --no-cache ca-certificates \
+&&  rm -rf /var/cache/apk/* \
+%%  rm -rf /tmp/* \
+&&  chmod a+x  /usr/local/bin/qbittorrent-nox /usr/bin/entrypoint.sh \
+# configurate running env
+&&  addgroup -g ${GID} qbittorrent \
+&&  adduser -h /config -s /bin/sh -G qbittorrent -D -u ${UID} qbittorrent \
+&&  chown -R qbittorrent:qbittorrent /config \
+&&  chown -R qbittorrent:qbittorrent /downloads
 
+VOLUME /downloads /config
+EXPOSE $WEBUI_PORT  $PEER_PORT  $PEER_PORT/udp
 
-VOLUME /Downloads /config
-EXPOSE 8989  6881  6881/udp
-ENTRYPOINT [ "entrypoint.sh"]
+USER qbittorrent
+ENTRYPOINT [ "/usr/bin/entrypoint.sh" ]
