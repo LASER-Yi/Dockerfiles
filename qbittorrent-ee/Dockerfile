@@ -9,9 +9,9 @@ RUN apk add --no-cache ca-certificates make g++ gcc qt5-qtsvg-dev boost-dev qt5-
 &&  mv $(find . -name libtorrent-*) libtorrent \
 &&  cd libtorrent \
 &&  ./configure --disable-debug --enable-encryption CXXFLAGS="-std=c++14" \
-&&  make -j$(nproc) install-strip
+&&  make -j$(nproc) install-strip \
 # qBittorrent-Enhanced-Edition
-RUN  unzip -q /qbitttorrent-ee.zip -d /qbtorrent \
+&&  unzip -q /qbitttorrent-ee.zip -d /qbtorrent \
 &&   cd  /qbtorrent \
 &&   mv $(find . -name qBittorrent-*) qbittorrent-ee \
 &&   cd  qbittorrent-ee \
@@ -26,10 +26,10 @@ RUN  unzip -q /qbitttorrent-ee.zip -d /qbtorrent \
 # RunOS
 FROM alpine:latest
 
-ENV WEBUI_PORT=8989
-ENV PEER_PORT=6881
-ENV UID 1000
-ENV GID 1000
+ENV WEBUI_PORT=8989 \
+    PEER_PORT=6881 \
+    UID=1000 \
+    GID=1000
 
 COPY rootfs /
 COPY --from=compilerOS  /qbittorrent  /
