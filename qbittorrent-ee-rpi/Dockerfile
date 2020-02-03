@@ -3,9 +3,9 @@ FROM alpine as compilerOS
 COPY buildfs /
 
 RUN apk add --no-cache ca-certificates make g++ gcc qt5-qtsvg-dev boost-dev qt5-qttools-dev file curl \
-&& /download.sh && mkdir /qbtorrent \
-&& tar -zxvf  /libtorrent-rasterbar-${LIBTORRENT_VER}.tar.gz -C /qbtorrent \
-&&  cd  /qbtorrent/libtorrent-rasterbar-${LIBTORRENT_VER} \
+&&  /download.sh && mkdir /qbtorrent \
+&&  tar -zxvf  /libtorrent.tar.gz -C /qbtorrent \
+&&  cd  /qbtorrent/libtorrent \
 &&  ./configure --disable-debug --enable-encryption CXXFLAGS="-std=c++14" \
 &&  make -j$(nproc) install-strip
 # qBittorrent-Enhanced-Edition
