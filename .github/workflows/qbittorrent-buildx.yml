@@ -10,8 +10,16 @@ on:
 
 
 jobs:
+    test:
+        run-on: ubuntu-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v2
+            - name: Test Dockerfile
+              run: docker build -t qbittorrent-ee:test ./qbittorrent-ee-rpi
     build:
         runs-on: ubuntu-latest
+        needs: [test]
         steps:
             - name: Checkout
               uses: actions/checkout@v2
@@ -21,6 +29,6 @@ jobs:
                 version: latest
             - name: Build Image
               run: docker buildx build 
-               --platform=linux/arm/v7,linux/arm64,linux/amd64 
+               --platform=linux/arm/v7,linux/arm64
                --tag ly0007/qbittorrent-ee-rpi:latest 
                ./qbittorrent-ee-rpi
