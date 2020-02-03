@@ -3,7 +3,7 @@ FROM alpine:latest as compilerOS
 COPY buildfs /
 
 RUN apk add --no-cache ca-certificates make g++ gcc qt5-qtsvg-dev boost-dev qt5-qttools-dev file curl \
-&&  /download.sh && mkdir /qbtorrent \
+&&  chmod a+x /download.sh && /download.sh && mkdir /qbtorrent \
 &&  tar -zxf /libtorrent.tar.gz -C /qbtorrent \
 &&  cd /qbtorrent \
 &&  mv $(find . -name libtorrent-*) libtorrent \
