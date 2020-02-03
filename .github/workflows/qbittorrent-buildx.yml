@@ -1,0 +1,25 @@
+name: Build qBittorrent
+
+on:
+    push:
+        branches:
+            - master
+        paths:
+            - qbittorrent-ee-rpi/
+
+
+jobs:
+    main:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v2
+            - name: Setup Buildx
+              uses: crazy-max/ghaction-docker-buildx@v1
+              with:
+                version: latest
+            - name: Build Image
+              run: docker buildx build \
+              --platform=linux/arm/v7, linux/arm64, linux/amd64 \
+              --file ./qbittorrent-ee-rpi/Dockerfile \
+              --tag ly0007/qbittorrent-ee-rpi:latest
