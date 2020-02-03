@@ -20,7 +20,7 @@ jobs:
               with:
                 version: latest
             - name: Build Image
-              run: docker buildx build \
-               --platform=linux/arm/v7, linux/arm64, linux/amd64 \
-               --file ./qbittorrent-ee-rpi/Dockerfile \
+              run: docker buildx build 
+               --platform=linux/arm/v7, linux/arm64, linux/amd64 
+               --file ./qbittorrent-ee-rpi/Dockerfile 
                --tag ly0007/qbittorrent-ee-rpi:latest
