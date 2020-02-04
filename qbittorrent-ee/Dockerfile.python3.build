@@ -1,0 +1,5 @@
+FROM ly0007/qbittorrent-ee:latest
+
+RUN apk add --no-cache python3 \
+&&  rm -rf /var/cache/apk/* \
+&&  rm -rf /tmp/*

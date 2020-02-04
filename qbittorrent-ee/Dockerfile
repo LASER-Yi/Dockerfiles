@@ -1,5 +1,9 @@
 FROM alpine:latest as compilerOS
 
+LABEL maintainer="ly0007@yeah.net" \
+    org.label-schema.name="qBittorrent-ee" \
+    org.label-schema.vcs-url="https://github.com/LASER-Yi/Dockerfiles"
+
 COPY buildfs /
 
 RUN apk add --no-cache ca-certificates make g++ gcc qt5-qtsvg-dev boost-dev qt5-qttools-dev file curl \
@@ -15,13 +19,18 @@ RUN apk add --no-cache ca-certificates make g++ gcc qt5-qtsvg-dev boost-dev qt5-
 &&   cd  /qbtorrent \
 &&   mv $(find . -name qBittorrent-*) qbittorrent-ee \
 &&   cd  qbittorrent-ee \
-&&   ./configure   --disable-gui \
+&&   ./configure --disable-gui --disable-stacktrace \
 &&   make -j$(nproc) install \
-&&   ldd /usr/local/bin/qbittorrent-nox   |cut -d ">" -f 2|grep lib|cut -d "(" -f 1|xargs tar -chvf /qbtorrent/qbittorrent.tar  \
-&&   mkdir /qbittorrent   \
-&&   tar  -xvf /qbtorrent/qbittorrent.tar   -C  /qbittorrent   \
-&&   cp --parents /usr/local/bin/qbittorrent-nox  /qbittorrent
+# copy dependence and other stuff
+&&   ldd /usr/local/bin/qbittorrent-nox |cut -d ">" -f 2|grep lib|cut -d "(" -f 1|xargs tar -chvf /qbtorrent/qbittorrent.tar \
+&&   mkdir /qbittorrent \
+&&   tar -xvf /qbtorrent/qbittorrent.tar -C /qbittorrent \
+&&   cp --parents /usr/local/bin/qbittorrent-nox /qbittorrent
 
+# setup run env
+COPY rootfs /qbittorrent
+RUN cd /qbittorrent \
+&&  chmod a+x usr/local/bin/qbittorrent-nox usr/bin/entrypoint.sh
 
 # RunOS
 FROM alpine:latest
@@ -31,16 +40,9 @@ ENV WEBUI_PORT=8989 \
     UID=1000 \
     GID=1000
 
-COPY rootfs /
 COPY --from=compilerOS  /qbittorrent  /
-
-# install dependance
-RUN apk add --no-cache ca-certificates \
-&&  rm -rf /var/cache/apk/* \
-%%  rm -rf /tmp/* \
-&&  chmod a+x  /usr/local/bin/qbittorrent-nox /usr/bin/entrypoint.sh
 
 VOLUME /downloads /config
 EXPOSE $WEBUI_PORT  $PEER_PORT  $PEER_PORT/udp
 
-ENTRYPOINT [ "/usr/bin/entrypoint.sh" ]
+ENTRYPOINT [ "entrypoint.sh" ]

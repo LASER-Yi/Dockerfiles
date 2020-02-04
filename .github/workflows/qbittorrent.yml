@@ -12,9 +12,8 @@ env:
     REPO_NAME: ly0007/qbittorrent-ee
 
 jobs:
-    BuildX:
+    Build:
         runs-on: ubuntu-latest
-
         steps:
             - name: Checkout
               uses: actions/checkout@v2
@@ -30,4 +29,11 @@ jobs:
                --tag $REPO_NAME:latest 
                --push 
                ./qbittorrent-ee 
+            - name: Build Python version & Push
+              run: docker buildx build 
+               --platform=linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64 
+               --tag $REPO_NAME:latest-python3 
+               --push 
+               ./qbittorrent-ee 
+               -f ./qbittorrent-ee/Dockerfile.python3.build 
 
