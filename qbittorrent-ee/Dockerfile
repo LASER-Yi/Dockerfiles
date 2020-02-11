@@ -43,6 +43,8 @@ ENV WEBUI_PORT=8989 \
 COPY --from=compilerOS  /qbittorrent  /
 
 VOLUME /downloads /config
-EXPOSE $WEBUI_PORT  $PEER_PORT  $PEER_PORT/udp
+
+# donot expose port cause we are using host network
+# EXPOSE $WEBUI_PORT  $PEER_PORT  $PEER_PORT/udp
 
 ENTRYPOINT [ "entrypoint.sh" ]
