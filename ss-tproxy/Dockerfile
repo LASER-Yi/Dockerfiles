@@ -30,7 +30,7 @@ RUN apk add --no-cache \
 # update build-in list
 RUN ss-tproxy update-gfwlist \
     && ss-tproxy update-chnroute \
-    && ss-tproxy update-chnonly \
+    && ss-tproxy update-chnlist \
     && ss-tproxy restart \
     && tail -f /var/log/ssr-redir.log 
 
