@@ -12,8 +12,7 @@ RUN mkdir /build-package \
     && chmod +x ss-tproxy \
     && cp -af ss-tproxy /build-package/usr/local/bin \
     && mkdir -p /build-package/etc/ss-tproxy \
-    && cp -af ss-tproxy.conf gfwlist* chnroute* ignlist* /build-package/etc/ss-tproxy \
-    && chmod 777 /build-package/usr/bin/entrypoint.sh
+    && cp -af ss-tproxy.conf gfwlist* chnroute* ignlist* /build-package/etc/ss-tproxy 
 
 FROM ly0007/shadowsocks-libev:latest
 
