@@ -2,7 +2,7 @@
 ![CI](https://github.com/LASER-Yi/Dockerfiles/workflows/CI/badge.svg)
 ![CI](https://github.com/LASER-Yi/Dockerfiles/workflows/qBittorrent/badge.svg)
 
-🐳 A collection of Dockerfile build for raspberrypi and others
+🐳 A collection of Dockerfile build for raspberrypi and other platforms
 
 [Docker HUB](https://hub.docker.com/u/ly0007)
 
@@ -11,10 +11,15 @@
 
 Support CPU:
 * arm32v6
-* arm32v7 (RaspberryPi 3)
-* arm64v8 (RaspberryPi 4)
-* i368
+* arm32v7
+* arm64v8
 * amd64
 
-### xware-rpi
-> Thunder xware for arm32v7, arm64v8 (WIP)
+### Shadowsocks-libev
+> Shadowsocks-libev multi-arch support
+
+Support CPU:
+* arm32v6
+* arm32v7
+* arm64v8
+* amd64
