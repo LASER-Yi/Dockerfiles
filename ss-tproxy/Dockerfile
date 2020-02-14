@@ -28,11 +28,12 @@ RUN apk add --no-cache \
     iproute2
 
 # update build-in list
-RUN ss-tproxy update-gfwlist \
-    && ss-tproxy update-chnroute \
-    && ss-tproxy update-chnlist \
-    && ss-tproxy restart \
-    && tail -f /var/log/ssr-redir.log 
+# do not update
+# RUN ss-tproxy update-gfwlist \
+#     && ss-tproxy update-chnroute \
+#     && ss-tproxy update-chnlist \
+#     && ss-tproxy restart \
+#     && tail -f /var/log/ssr-redir.log 
 
 VOLUME /etc/ss-tproxy
 
