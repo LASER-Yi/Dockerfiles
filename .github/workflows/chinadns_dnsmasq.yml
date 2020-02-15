@@ -9,7 +9,7 @@ on:
             - .github/workflows/chinadns_dnsmasq.yml
 
 env:
-    REPO_NAME: ly0007/chinadns+dnsmasq
+    REPO_NAME: ly0007/chinadns_dnsmasq
 
 jobs:
     Build:
