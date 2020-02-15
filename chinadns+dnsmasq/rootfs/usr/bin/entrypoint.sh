@@ -6,8 +6,7 @@
 [[ ! -f /config/chnroute.txt ]] && cp -r /backup/* /config
 
 # start dnsmasq service
-dnsmasq -a 0.0.0.0 \
---cache-size=25000 \
+dnsmasq --cache-size=25000 \
 --conf-file=/dev/null \
 --conf-dir=/config/dnsmasq.d/ \
 --log-facility=/dev/stdout \

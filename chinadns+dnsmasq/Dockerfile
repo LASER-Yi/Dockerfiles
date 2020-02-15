@@ -25,8 +25,8 @@ RUN mkdir chinadns \
 
 FROM alpine:latest
 
-COPY --from=builder  /build-package  /
 COPY rootfs /
+COPY --from=builder  /build-package  /
 
 RUN apk add --no-cache dnsmasq \
     && chmod +x /usr/bin/entrypoint.sh
