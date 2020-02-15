@@ -22,7 +22,7 @@ RUN apk add --no-cache --virtual .build-deps \
     gettext-dev \
     zlib-dev \
     && git clone --depth=1 https://github.com/shadowsocksrr/shadowsocksr-libev.git \
-    && export CFLAGS="-Wno-error" && export CPPFLAGS="-Wno-error"
+    && export CFLAGS="-Wno-error" && export CPPFLAGS="-Wno-error" \
     && cd shadowsocksr-libev \
     && sh autogen.sh \
     && sh configure --prefix=/usr --disable-documentation \
