@@ -35,4 +35,4 @@ jobs:
                --tag $REPO_NAME:latest-ssr 
                --push 
                ./shadowsocks-libev 
-               -f ./qbittorrent-ee/Dockerfile.ssr
+               -f ./shadowsocks-libev/Dockerfile.ssr
