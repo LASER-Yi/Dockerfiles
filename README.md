@@ -1,6 +1,8 @@
 # Dockerfiles
 ![CI](https://github.com/LASER-Yi/Dockerfiles/workflows/CI/badge.svg)
-![CI](https://github.com/LASER-Yi/Dockerfiles/workflows/qBittorrent/badge.svg)
+![QB](https://github.com/LASER-Yi/Dockerfiles/workflows/qBittorrent/badge.svg)
+![SS](https://github.com/LASER-Yi/Dockerfiles/workflows/Shadowsocks-libev/badge.svg)
+![CD](https://github.com/LASER-Yi/Dockerfiles/workflows/Chinadns+Dnsmasq/badge.svg)
 
 🐳 A collection of Dockerfile build for raspberrypi and other platforms
 
