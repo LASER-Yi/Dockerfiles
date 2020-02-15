@@ -29,3 +29,10 @@ jobs:
                --tag $REPO_NAME:latest 
                --push 
                ./shadowsocks-libev 
+            - name: Build SSR & Push
+              run: docker buildx build 
+               --platform=linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64 
+               --tag $REPO_NAME:latest-ssr 
+               --push 
+               ./shadowsocks-libev 
+               -f ./qbittorrent-ee/Dockerfile.ssr
