@@ -6,7 +6,7 @@ on:
         - .github/workflows/ci.yml
         - qbittorrent-ee/*
         - shadowsocks-libev/*
-        - ss-tproxy/*
+        - chinadns+dnsmasq/*
 
 
 jobs: 
@@ -26,10 +26,10 @@ jobs:
             - name: Vaild
               run: docker build ./shadowsocks-libev
 
-    ss-tproxy:
+    dnsmasq-chinadns:
         runs-on: ubuntu-latest
         steps:
             - name: Checkout
               uses: actions/checkout@v2
             - name: Vaild
-              run: docker build ./ss-tproxy
+              run: docker build ./chinadns+dnsmasq
