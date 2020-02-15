@@ -5,7 +5,7 @@ on:
         branches:
             - master
         paths:
-            - chinadns+dnsmasq/*
+            - chinadns+dnsmasq/**
             - .github/workflows/chinadns_dnsmasq.yml
 
 env:

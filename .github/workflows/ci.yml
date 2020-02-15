@@ -4,9 +4,9 @@ on:
   push:
       paths:
         - .github/workflows/ci.yml
-        - qbittorrent-ee/*
-        - shadowsocks-libev/*
-        - chinadns+dnsmasq/*
+        - qbittorrent-ee/**
+        - shadowsocks-libev/**
+        - chinadns+dnsmasq/**
 
 
 jobs: 

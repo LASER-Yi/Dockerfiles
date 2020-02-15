@@ -5,7 +5,7 @@ on:
         branches:
             - master
         paths:
-            - shadowsocks-libev/*
+            - shadowsocks-libev/**
             - .github/workflows/shadowsocks-libev.yml
 
 env:
