@@ -4,10 +4,31 @@
 
 # create a daemon for tproxy
 
-trap "tproxy-stop.sh" EXIT
+dnsmasq_pid=0
+chinadns_pid=0
+
+trap "sigterm_handler" TERM
+
+sigterm_handler() {
+echo "exiting..."
+
+tproxy-stop.sh
+
+if [ $dnsmasq_pid -ne 0 ]; then
+  kill -TERM "$dnsmasq_pid"
+  wait "$dnsmasq_pid"
+fi
+
+if [ $chinadns_pid -ne 0 ]; then
+  kill -TERM "$chinadns_pid"
+  wait "$chinadns_pid"
+fi
+
+exit 143;
+}
 
 # exit when fail
-set +eu
+set -eu
 
 # copy filter file if no exist
 [[ ! -f /config/chnroute.txt ]] && cp -r /backup/* /config
@@ -19,20 +40,22 @@ dnsmasq --cache-size=25000 \
 --log-facility=/dev/stdout \
 --no-resolv \
 --server=127.0.0.1#2053 \
---user=root
+--user=root 
+
+# start chinadns service as daemon
+chinadns -p 2053 -c /config/chnroute.txt -v &
+
+# dnsmasq will folk
+dnsmasq_pid=$(pidof dnsmasq | sed "s|^\([0-9]*\)\(.*\)|\1|")
+chinadns_pid=$(pidof chinadns)
 
 # copy tproxy setup file if no exist
 [[ ! -f /config/custom-tcp-rule.sh ]] && cp -r /tproxy-backup/* /config
-
 # setup
 chmod 755 /config/custom-*
 
 # setting up tproxy iptables
 tproxy-start.sh
 
-# start chinadns service as daemon
-chinadns -p 2053 -c /config/chnroute.txt -v &
-
-while true; do
-    sleep 120s
-done
+wait
+set +eu
