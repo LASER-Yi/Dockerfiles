@@ -49,8 +49,6 @@ chinadns -p 2053 -c /config/chnroute.txt -v &
 dnsmasq_pid=$(pidof dnsmasq | sed "s|^\([0-9]*\)\(.*\)|\1|")
 chinadns_pid=$(pidof chinadns)
 
-# copy tproxy setup file if no exist
-[[ ! -f /config/custom-tcp-rule.sh ]] && cp -r /tproxy-backup/* /config
 # setup
 chmod 755 /config/custom-*
 
