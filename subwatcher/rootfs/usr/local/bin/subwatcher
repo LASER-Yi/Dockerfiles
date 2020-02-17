@@ -6,5 +6,5 @@ watchpath=$1
 
 inotifywait -m -e create,moved_to $watchpath |
 while read -r directory events filename; do
-	subfinder $watchpath/$filename
+	subfinder $watchpath/$filename $SUBFINDER_PARM
 done
