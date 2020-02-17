@@ -14,4 +14,4 @@ sed -i "s|Downloads\\\SavePath=.*|Downloads\\\SavePath=/downloads|i" /config/.co
 chown -R qbittorrent:qbittorrent /config
 chown -R qbittorrent:qbittorrent /downloads
 
-su qbittorrent -c "qbittorrent-nox --webui-port=${WEBUI_PORT}"
+exec su qbittorrent -c "qbittorrent-nox --webui-port=${WEBUI_PORT}"
