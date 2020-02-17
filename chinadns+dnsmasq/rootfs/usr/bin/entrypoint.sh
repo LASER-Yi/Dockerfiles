@@ -15,4 +15,4 @@ dnsmasq --cache-size=25000 \
 --user=root
 
 # start chinadns service
-chinadns -p 2053 -c /config/chnroute.txt -v
+exec chinadns -p 2053 -c /config/chnroute.txt -v
