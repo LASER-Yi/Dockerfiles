@@ -3,6 +3,7 @@
 ![QB](https://github.com/LASER-Yi/Dockerfiles/workflows/qBittorrent/badge.svg)
 ![SS](https://github.com/LASER-Yi/Dockerfiles/workflows/Shadowsocks-libev/badge.svg)
 ![CD](https://github.com/LASER-Yi/Dockerfiles/workflows/Chinadns+Dnsmasq/badge.svg)
+![TP](https://github.com/LASER-Yi/Dockerfiles/workflows/TProxy/badge.svg)
 
 🐳 A collection of Dockerfile build for raspberrypi and other platforms
 
@@ -25,3 +26,15 @@ Support CPU:
 * arm32v7
 * arm64v8
 * amd64
+
+### ChinaDNS+Dnsmasq
+> All-in-One DNS Server for ChinaDNS
+
+Support CPU:
+* arm32v6
+* arm32v7
+* arm64v8
+* amd64
+
+## TProxy
+> All-in-One TProxy Gateway
