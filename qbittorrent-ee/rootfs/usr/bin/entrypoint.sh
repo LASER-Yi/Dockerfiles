@@ -12,6 +12,5 @@ sed -i "s|Connection\\\PortRangeMin=.*|Connection\\\PortRangeMin=${PEER_PORT}|i"
 sed -i "s|Downloads\\\SavePath=.*|Downloads\\\SavePath=/downloads|i" /config/.config/qBittorrent/qBittorrent.conf
 
 chown -R qbittorrent:qbittorrent /config
-chown -R qbittorrent:qbittorrent /downloads
 
 exec su qbittorrent -c "qbittorrent-nox --webui-port=${WEBUI_PORT}"
