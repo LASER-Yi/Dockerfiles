@@ -4,7 +4,7 @@
 
 # create a daemon for tproxy
 
-trap "tproxy-stop.sh" SIGQUIT SIGKILL SIGTERM
+trap "tproxy-stop.sh" EXIT
 
 # exit when fail
 set +eu
@@ -30,8 +30,5 @@ chmod 755 /config/custom-*
 # setting up tproxy iptables
 tproxy-start.sh
 
-# start chinadns service
+# start chinadns service as daemon
 chinadns -p 2053 -c /config/chnroute.txt -v
-
-# if fail, disable tproxy setting
-tproxy-stop.sh
