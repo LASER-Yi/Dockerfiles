@@ -29,10 +29,10 @@ docker run -d --name qbittorrent \
 -v qbittorrent_config:/config \
 -v /path/to/downloads:/downloads \
 --restart Unless-stopped \
-ly0007/qbittorrent
+ly0007/qbittorrent-ee
 ```
 
-If you need Python3 to drive search plugin, please download ``ly0007/qbittorrent:latest-python3`` version
+If you need Python3 to drive search plugin, please download ``ly0007/qbittorrent-ee:latest-python3`` version
 
 ### Shadowsocks-libev
 > Shadowsocks-libev multi-arch support
