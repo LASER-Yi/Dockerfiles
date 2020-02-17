@@ -31,4 +31,8 @@ chmod 755 /config/custom-*
 tproxy-start.sh
 
 # start chinadns service as daemon
-chinadns -p 2053 -c /config/chnroute.txt -v
+chinadns -p 2053 -c /config/chnroute.txt -v &
+
+while true; do
+    sleep 120s
+done
