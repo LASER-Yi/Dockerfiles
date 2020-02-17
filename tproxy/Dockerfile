@@ -1,5 +1,9 @@
 FROM ly0007/chinadns_dnsmasq:latest
 
+LABEL maintainer="ly0007@yeah.net" \
+    org.label-schema.name="TProxy" \
+    org.label-schema.vcs-url="https://github.com/LASER-Yi/Dockerfiles"
+
 COPY rootfs /
 
 RUN apk add --no-cache ipset iptables \
