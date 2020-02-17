@@ -7,6 +7,7 @@ on:
         - qbittorrent-ee/**
         - shadowsocks-libev/**
         - chinadns+dnsmasq/**
+        - subwatcher/**
 
 
 jobs: 
@@ -33,3 +34,11 @@ jobs:
               uses: actions/checkout@v2
             - name: Vaild
               run: docker build ./chinadns+dnsmasq
+
+    subwatcher:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v2
+            - name: Vaild
+              run: docker build ./subwatcher

@@ -36,5 +36,9 @@ Support CPU:
 * arm64v8
 * amd64
 
-## TProxy
+### TProxy
 > All-in-One TProxy Gateway
+
+
+### Subwatcher
+> Subtitle auto-download program base on [Subfinder](https://github.com/ausaki/subfinder)

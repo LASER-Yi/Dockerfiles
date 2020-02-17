@@ -1,0 +1,10 @@
+#! /bin/sh
+#
+# Subwatcher - base on subfinder
+
+watchpath=$1
+
+inotifywait -m -e create,moved_to $watchpath |
+while read -r directory events filename; do
+	subfinder $watchpath/$filename
+done
