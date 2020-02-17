@@ -1,11 +1,11 @@
 #! /bin/sh
 
-iptables -t nat -D OUTPUT -p tcp -j SS-TCP
-iptables -t nat -D PREROUTING -p tcp -s 192.168/16 -j SS-TCP
+iptables -t nat -D OUTPUT -p tcp -j TPROXY-TCP
+iptables -t nat -D PREROUTING -p tcp -s 192.168/16 -j TPROXY-TCP
 iptables -t nat -F TPROXY-TCP
 iptables -t nat -X TPROXY-TCP
 
-iptables -t mangle -D PREROUTING -p udp -s 192.168/16 -j SS-UDP
+iptables -t mangle -D PREROUTING -p udp -s 192.168/16 -j TPROXY-UDP
 iptables -t mangle -F TPROXY-UDP
 iptables -t mangle -X TPROXY-UDP
 
