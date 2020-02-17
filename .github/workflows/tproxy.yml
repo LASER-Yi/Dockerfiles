@@ -1,4 +1,4 @@
-name: Chinadns+Dnsmasq
+name: TProxy
 
 on:
     push:
