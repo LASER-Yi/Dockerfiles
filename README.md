@@ -52,7 +52,7 @@ docker pull ly0007/shadowsocks-libev:latest-ssr
 ### TProxy
 > All-in-One TProxy Gateway
 
-Auto configurate TProxy to REDIRECT incoming links.
+Auto configurate TProxy to REDIRECT incoming links with built-in ChinaDNS server.
 
 Quick Setup
 ```
