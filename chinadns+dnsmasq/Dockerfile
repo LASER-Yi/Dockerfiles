@@ -1,8 +1,8 @@
 FROM alpine:latest as builder
 
-ENV DNS_VER 1.3.2
-ENV DNS_URL https://github.com/clowwindy/ChinaDNS/releases/download/${DNS_VER}/chinadns-${DNS_VER}.tar.gz
-ENV DNS_FILE chinadns.tar.gz
+ENV DNS_VER 1.3.2 \
+    DNS_URL https://github.com/clowwindy/ChinaDNS/releases/download/${DNS_VER}/chinadns-${DNS_VER}.tar.gz \
+    DNS_FILE chinadns.tar.gz
 
 RUN mkdir /build-package \
     && apk add --no-cache curl git build-base linux-headers
