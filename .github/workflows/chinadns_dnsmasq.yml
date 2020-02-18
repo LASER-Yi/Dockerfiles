@@ -1,11 +1,11 @@
-name: Chinadns+Dnsmasq
+name: Chinadns_Dnsmasq
 
 on:
     push:
         branches:
             - master
         paths:
-            - chinadns+dnsmasq/**
+            - chinadns_dnsmasq/**
             - .github/workflows/chinadns_dnsmasq.yml
 
 env:
@@ -28,4 +28,4 @@ jobs:
                --platform=linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64 
                --tag $REPO_NAME:latest 
                --push 
-               ./chinadns+dnsmasq
+               ./chinadns_dnsmasq

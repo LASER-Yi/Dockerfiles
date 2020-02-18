@@ -2,7 +2,7 @@
 ![CI](https://github.com/LASER-Yi/Dockerfiles/workflows/CI/badge.svg)
 ![QB](https://github.com/LASER-Yi/Dockerfiles/workflows/qBittorrent/badge.svg)
 ![SS](https://github.com/LASER-Yi/Dockerfiles/workflows/Shadowsocks-libev/badge.svg)
-![CD](https://github.com/LASER-Yi/Dockerfiles/workflows/Chinadns+Dnsmasq/badge.svg)
+![CD](https://github.com/LASER-Yi/Dockerfiles/workflows/Chinadns_Dnsmasq/badge.svg)
 ![TP](https://github.com/LASER-Yi/Dockerfiles/workflows/TProxy/badge.svg)
 
 🐳 A collection of Dockerfile build for raspberrypi and other platforms
