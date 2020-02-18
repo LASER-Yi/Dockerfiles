@@ -37,6 +37,9 @@ set -eu
 # copy filter file if no exist
 [[ ! -f /config/chnroute.txt ]] && cp -r /backup/* /config
 
+# copy dnsmasq.conf if no exist
+[[ ! -f /config/dnsmasq.conf ]] && cp -r /etc/dnsmasq.conf /config
+
 # start dns2tcp service as daemon
 dns2tcp -L 127.0.0.1#60024 -R ${TRUST_DNS}#53 &
 
@@ -48,7 +51,7 @@ chinadns -p 60023 \
 
 # start dnsmasq service
 dnsmasq --cache-size=25000 \
---conf-file=/dev/null \
+--conf-file=/config/dnsmasq.conf \
 --conf-dir=/config/dnsmasq.d/ \
 --log-facility=/dev/stdout \
 --no-resolv \
