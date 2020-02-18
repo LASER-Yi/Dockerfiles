@@ -6,7 +6,7 @@ on:
         - .github/workflows/ci.yml
         - qbittorrent-ee/**
         - shadowsocks-libev/**
-        - chinadns+dnsmasq/**
+        - chinadns_dnsmasq/**
         - subwatcher/**
 
 
@@ -33,7 +33,7 @@ jobs:
             - name: Checkout
               uses: actions/checkout@v2
             - name: Vaild
-              run: docker build ./chinadns+dnsmasq
+              run: docker build ./chinadns_dnsmasq
 
     subwatcher:
         runs-on: ubuntu-latest
