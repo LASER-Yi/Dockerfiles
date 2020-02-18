@@ -2,6 +2,7 @@
 #
 # Create iptables rule
 
+echo "Creating new iptables rule..."
 ip rule add fwmark 0xff table 100
 ip route add local 0/0 dev lo table 100
 # UDP

@@ -3,6 +3,7 @@
 # tproxy-import
 # This shell is use for import chnip
 
+echo "Import chnip rules..."
 tempfile=$(mktemp)
 
 ipset -N chnip hash:net

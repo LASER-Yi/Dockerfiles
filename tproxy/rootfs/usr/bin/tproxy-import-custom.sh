@@ -3,6 +3,7 @@
 # tproxy-import
 # This shell is use for import chnip
 
+echo "Importing custom rules..."
 tempfile=$(mktemp)
 
 ipset -N custom_direct hash:net

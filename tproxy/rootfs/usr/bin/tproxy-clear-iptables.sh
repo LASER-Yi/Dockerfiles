@@ -1,5 +1,6 @@
 #! /bin/sh
 
+echo "Clearing iptables..."
 # Remove TCP
 iptables -t nat -D OUTPUT -p tcp -j TPROXY-TCP
 iptables -t nat -D PREROUTING -p tcp -s 192.168/16 -j TPROXY-TCP
