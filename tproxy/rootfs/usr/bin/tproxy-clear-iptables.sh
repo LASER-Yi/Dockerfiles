@@ -7,7 +7,6 @@ iptables -t nat -F TPROXY-TCP
 iptables -t nat -X TPROXY-TCP
 
 #Remove UDP
-iptables -t mangle -D OUTPUT -p udp -j TPROXY-UDP
 iptables -t mangle -D PREROUTING -p udp -s 192.168/16 -j TPROXY-UDP
 iptables -t mangle -F TPROXY-UDP
 iptables -t mangle -X TPROXY-UDP
