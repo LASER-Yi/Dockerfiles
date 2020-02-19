@@ -5,9 +5,6 @@ ENV DNS_URL https://github.com/clowwindy/ChinaDNS/releases/download/${DNS_VER}/c
 ENV DNS_FILE chinadns.tar.gz
 
 RUN mkdir /build-package \
-    ## DEBUG
-    && sed -i 's/dl-cdn.alpinelinux.org/mirrors.tuna.tsinghua.edu.cn/g' /etc/apk/repositories \
-    ## DEBUG
     && apk add --no-cache curl git build-base linux-headers libuv-dev
 
 RUN mkdir chinadns \
