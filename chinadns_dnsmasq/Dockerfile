@@ -21,7 +21,12 @@ RUN mkdir chinadns \
     && git clone https://github.com/zfl9/dns2tcp \
     && cd dns2tcp \
     && make && make install DESTDIR=/build-package/usr/local/bin \
-    && cd /
+    && cd / \
+    ## download dnsmasq-china-list
+    && mkdir -p /build-package/backup/dnsmasq.d/ \
+    && git clone --depth=1 https://github.com/felixonmars/dnsmasq-china-list.git \
+    && cp /dnsmasq-china-list/dnsmasq-update-china-list /build-package/usr/local/bin \
+    && cp /dnsmasq-china-list/*.conf /build-package/backup/dnsmasq.d/
 
 FROM alpine:latest
 

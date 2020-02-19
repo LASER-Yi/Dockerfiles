@@ -4,8 +4,6 @@
 
 echo "Updating Dnsmasq-China-List..."
 
-mkdir -p /config/dnsmasq.d/
-
 curl -sSL https://raw.githubusercontent.com/felixonmars/dnsmasq-china-list/master/accelerated-domains.china.conf \
     -o /config/dnsmasq.d/accelerated-domains.china.conf
 
