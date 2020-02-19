@@ -6,7 +6,7 @@
 echo "Import chnip rules..."
 tempfile=$(mktemp)
 
-ipset -N chnroute hash:net
+ipset -N chnroute4 hash:net
 for i in `cat /config/chnroute4.txt`; do echo ipset -A chnroute4 $i >> $tempfile; done
 chmod +x $tempfile
 
