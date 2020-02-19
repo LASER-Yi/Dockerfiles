@@ -66,6 +66,36 @@ docker run -d --name TProxy \
 ly0007/tproxy
 ```
 
+Deploy full setup with Docker-Compose (Sample)
+
+``` yml
+version: '3' 
+services: 
+  ShadowsocksR:
+    image: ly0007/shadowsocks-libev:latest-ssr
+    command: ss-redir -c /config/ssr.json -u
+    network_mode: "host"
+    restart: unless-stopped
+    volumes:
+      - /etc/tproxy:/config
+  TProxy:
+    image: ly0007/tproxy
+    cap_add:
+      - NET_ADMIN
+    network_mode: "host"
+    volumes:
+      - /etc/tproxy:/config
+  ChinaDNS-NG:
+    image: ly0007/chinadns_dnsmasq:latest-ng
+    cap_add:
+      - NET_ADMIN
+    network_mode: "host"
+    environment:
+      CHINADNS_OPTION: -r
+    volumes:
+      - /etc/tproxy:/config
+```
+
 **This Image will modify your iptables and ipset, some function are still under development. Use at your own risk**
 
 ### Subwatcher
