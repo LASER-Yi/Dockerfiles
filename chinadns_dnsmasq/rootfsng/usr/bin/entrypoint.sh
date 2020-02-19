@@ -48,6 +48,7 @@ chinadns-ng -l 60023 \
  -c ${CHINA_DNS} \
  -t 127.0.0.1#60024 \
  --ipset-name4 ${IPSET_NAME} \
+ --ipset-name6 ${IPSET_NAME6} \
  ${CHINADNS_OPTION} &
 
 # start dnsmasq service

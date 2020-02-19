@@ -20,7 +20,8 @@ FROM alpine:latest
 
 ENV CHINA_DNS=114.114.114.114 \
     TRUST_DNS=8.8.8.8 \
-    IPSET_NAME=chnip \
+    IPSET_NAME=chnroute4 \
+    IPSET_NAME6=chnroute6 \
     CHINADNS_OPTION="-v"
 
 COPY rootfsng /
