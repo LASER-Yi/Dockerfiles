@@ -16,7 +16,7 @@ exit 143;
 set -eu
 
 # copy custom file if no exist
-[[ ! -f /config/custom.txt ]] && cp -r /backup/custom* /config
+[[ ! -f /config/custom_direct.txt ]] && cp -r /backup/custom* /config
 
 # copy route file if no exist
 [[ ! -f /config/chnroute.txt ]] && cp -r /backup/chnroute.txt /config
