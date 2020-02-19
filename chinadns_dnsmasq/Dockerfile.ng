@@ -1,9 +1,6 @@
 FROM alpine:latest as builder
 
 RUN mkdir /build-package \
-    ## DEBUG
-    && sed -i 's/dl-cdn.alpinelinux.org/mirrors.tuna.tsinghua.edu.cn/g' /etc/apk/repositories \
-    ## DEBUG
     && apk add --no-cache curl git build-base linux-headers libuv-dev
 
 RUN git clone https://github.com/zfl9/chinadns-ng \
