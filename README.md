@@ -98,7 +98,7 @@ services:
       - /etc/tproxy:/config
 ```
 
-**This Image will modify your iptables and ipset, some function are still under development. Use at your own risk**
+**This Image will modify your iptables and ipset, please make sure NET_ADMIN is enable**
 
 ### Subwatcher
 > Subtitle auto-download program base on [Subfinder](https://github.com/ausaki/subfinder)
