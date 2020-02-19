@@ -7,7 +7,11 @@ LABEL maintainer="ly0007@yeah.net" \
 COPY rootfs /
 
 RUN apk add --no-cache ipset iptables curl \
-    && chmod +x /usr/bin/entrypoint.sh /usr/bin/tproxy-*
+    && chmod +x /usr/bin/entrypoint.sh /usr/bin/tproxy-* \
+    && curl -sSL 'http://ftp.apnic.net/apnic/stats/apnic/delegated-apnic-latest' -o /tmp/chnip \
+    && cat /tmp/chnip | grep ipv4 | grep CN | awk -F\| '{printf("%s/%d\n", $4, 32-log($5)/log(2))}' > /backup/chnroute4.txt \
+    && cat /tmp/chnip | grep ipv6 | grep CN | awk -F\| '{printf("%s/%d\n", $4, $5)}' > /backup/chnroute6.txt \
+    && rm -rf /tmp/chnip
 
 VOLUME /config
 

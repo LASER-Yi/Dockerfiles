@@ -10,3 +10,5 @@ cat /tmp/chnip | grep ipv4 | grep CN | awk -F\| '{printf("%s/%d\n", $4, 32-log($
 cat /tmp/chnip | grep ipv6 | grep CN | awk -F\| '{printf("%s/%d\n", $4, $5)}' > /config/chnroute6.txt
 
 rm -rf /tmp/chnip
+
+echo "Done"
