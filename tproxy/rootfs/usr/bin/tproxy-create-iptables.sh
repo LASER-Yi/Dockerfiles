@@ -24,7 +24,7 @@ iptables -t mangle -A TPROXY-UDP -p udp --dport $SERVER_PORT -j RETURN
 iptables -t mangle -A TPROXY-UDP -m set --match-set custom_direct dst -j RETURN
 iptables -t mangle -A TPROXY-UDP -p udp -m set --match-set custom_proxy dst -j TPROXY --tproxy-mark 0xff --on-ip 127.0.0.1 --on-port $REDIR_PORT
 iptables -t mangle -A TPROXY-UDP -m set --match-set chnroute4 dst -j RETURN
-iptables -t mangle -A TPROXY-UDP -m set --match-set chnroute6 dst -j RETURN
+# iptables -t mangle -A TPROXY-UDP -m set --match-set chnroute6 dst -j RETURN
 # redir rule
 iptables -t mangle -A TPROXY-UDP -p udp -j TPROXY --tproxy-mark 0xff --on-ip 127.0.0.1 --on-port $REDIR_PORT
 # re-routing flow
@@ -49,7 +49,7 @@ iptables -t nat -A TPROXY-TCP -p tcp --dport $SERVER_PORT -j RETURN
 iptables -t nat -A TPROXY-TCP -m set --match-set custom_direct dst -j RETURN
 iptables -t nat -A TPROXY-TCP -p tcp -m set --match-set custom_proxy dst -j REDIRECT --to-ports $REDIR_PORT
 iptables -t nat -A TPROXY-TCP -m set --match-set chnroute4 dst -j RETURN
-iptables -t nat -A TPROXY-TCP -m set --match-set chnroute6 dst -j RETURN
+# iptables -t nat -A TPROXY-TCP -m set --match-set chnroute6 dst -j RETURN
 # redir rule
 iptables -t nat -A TPROXY-TCP -p tcp -j REDIRECT --to-ports $REDIR_PORT
 # re-routing flow
