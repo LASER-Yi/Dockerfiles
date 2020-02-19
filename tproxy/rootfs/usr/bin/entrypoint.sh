@@ -19,8 +19,8 @@ set -eu
 [[ ! -f /config/custom_direct.txt ]] && cp -r /backup/custom* /config
 
 # copy ipset file if no exist
-[[ ! -f /config/chnroute4.txt ]] && cp -r /config/chnroute4.txt /config
-[[ ! -f /config/chnroute6.txt ]] && cp -r /config/chnroute6.txt /config
+[[ ! -f /config/chnroute4.txt ]] && cp -r /backup/chnroute4.txt /config
+[[ ! -f /config/chnroute6.txt ]] && cp -r /backup/chnroute6.txt /config
 
 # setup
 chmod 755 /config/custom-*
