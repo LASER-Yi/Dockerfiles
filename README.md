@@ -83,6 +83,7 @@ services:
     cap_add:
       - NET_ADMIN
     network_mode: "host"
+    restart: unless-stopped
     volumes:
       - /etc/tproxy:/config
   ChinaDNS-NG:
@@ -90,6 +91,7 @@ services:
     cap_add:
       - NET_ADMIN
     network_mode: "host"
+    restart: unless-stopped
     environment:
       CHINADNS_OPTION: -r
     volumes:
