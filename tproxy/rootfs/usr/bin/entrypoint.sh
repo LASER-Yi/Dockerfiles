@@ -18,8 +18,8 @@ set -eu
 # copy custom file if no exist
 [[ ! -f /config/custom_direct.txt ]] && cp -r /backup/custom* /config
 
-# copy route file if no exist
-[[ ! -f /config/chnroute.txt ]] && cp -r /backup/chnroute.txt /config
+# update chnroute file
+tproxy-update-chnroute.sh
 
 # setup
 chmod 755 /config/custom-*

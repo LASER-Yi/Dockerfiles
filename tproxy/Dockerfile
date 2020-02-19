@@ -6,9 +6,7 @@ LABEL maintainer="ly0007@yeah.net" \
 
 COPY rootfs /
 
-ADD https://github.com/shadowsocks/ChinaDNS/raw/master/chnroute.txt /backup
-
-RUN apk add --no-cache ipset iptables \
+RUN apk add --no-cache ipset iptables curl \
     && chmod +x /usr/bin/entrypoint.sh /usr/bin/tproxy-*
 
 VOLUME /config
