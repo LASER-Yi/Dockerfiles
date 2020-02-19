@@ -29,3 +29,10 @@ jobs:
                --tag $REPO_NAME:latest 
                --push 
                ./chinadns_dnsmasq
+            - name: Build NG & Push
+              run: docker buildx build 
+               --platform=linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64 
+               --tag $REPO_NAME:latest-ng
+               --push 
+               ./chinadns_dnsmasq
+               -f ./chinadns_dnsmasq/Dockerfile.ng

@@ -1,0 +1,44 @@
+FROM alpine:latest as builder
+
+RUN mkdir /build-package \
+    ## DEBUG
+    && sed -i 's/dl-cdn.alpinelinux.org/mirrors.tuna.tsinghua.edu.cn/g' /etc/apk/repositories \
+    ## DEBUG
+    && apk add --no-cache curl git build-base linux-headers libuv-dev
+
+RUN git clone https://github.com/zfl9/chinadns-ng \
+    && mkdir -p /build-package/usr/local/bin \
+    && cd chinadns-ng \
+    && make && make install DESTDIR=/build-package/usr/local/bin \
+    # copy required file
+    && mkdir -p /build-package/backup \
+    # && cp chnroute.txt /build-package/backup \
+    && cd / \
+    ## build dns2tcp
+    && git clone https://github.com/zfl9/dns2tcp \
+    && cd dns2tcp \
+    && make && make install DESTDIR=/build-package/usr/local/bin \
+    && cd / \
+    ## download dnsmasq-china-list
+    && mkdir -p /build-package/backup/dnsmasq.d/ \
+    && git clone --depth=1 https://github.com/felixonmars/dnsmasq-china-list.git \
+    && cp /dnsmasq-china-list/dnsmasq-update-china-list /build-package/usr/local/bin \
+    && cp /dnsmasq-china-list/*.conf /build-package/backup/dnsmasq.d/
+
+FROM alpine:latest
+
+ENV CHINA_DNS=114.114.114.114 \
+    TRUST_DNS=8.8.8.8 \
+    IPSET_NAME=chnip \
+    CHINADNS_OPTION="-v"
+
+COPY rootfsng /
+COPY --from=builder  /build-package  /
+
+RUN apk add --no-cache dnsmasq libuv \
+    && chmod +x /usr/bin/entrypoint.sh
+
+EXPOSE 53
+VOLUME /config
+
+ENTRYPOINT [ "entrypoint.sh" ]
