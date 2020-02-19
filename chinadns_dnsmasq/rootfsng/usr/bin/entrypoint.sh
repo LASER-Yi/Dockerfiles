@@ -40,10 +40,6 @@ set -eu
 # copy dnsmasq.conf if no exist
 [[ ! -f /config/dnsmasq.conf ]] && cp -r /etc/dnsmasq.conf /config
 
-# update dnsmasq-china-list
-dnsmasq-update-china-list
-cp -r /etc/dnsmasq.d/*.conf /config/dnsmasq.d/
-
 # start dns2tcp service as daemon
 dns2tcp -L 127.0.0.1#60024 -R ${TRUST_DNS}#53 &
 
@@ -62,6 +58,9 @@ dnsmasq --cache-size=25000 \
 --no-resolv \
 --server=127.0.0.1#60023 \
 --user=root 
+
+# update dnsmasq-china-list
+update-china-list.sh
 
 # dnsmasq will folk
 dnsmasq_pid=$(pidof dnsmasq | sed "s|^\([0-9]*\)\(.*\)|\1|")
