@@ -40,6 +40,10 @@ set -eu
 # copy dnsmasq.conf if no exist
 [[ ! -f /config/dnsmasq.conf ]] && cp -r /etc/dnsmasq.conf /config
 
+# update dnsmasq-china-list
+dnsmasq-update-china-list
+cp -r /etc/dnsmasq.d/*.conf /config/dnsmasq.d/
+
 # start dns2tcp service as daemon
 dns2tcp -L 127.0.0.1#60024 -R ${TRUST_DNS}#53 &
 

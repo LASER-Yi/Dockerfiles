@@ -21,12 +21,7 @@ RUN mkdir chinadns \
     && git clone https://github.com/zfl9/dns2tcp \
     && cd dns2tcp \
     && make && make install DESTDIR=/build-package/usr/local/bin \
-    && cd / \
-    ## download dnsmasq-china-list
-    && mkdir -p /build-package/backup/dnsmasq.d/ \
-    && git clone --depth=1 https://github.com/felixonmars/dnsmasq-china-list.git \
-    && cp /dnsmasq-china-list/dnsmasq-update-china-list /build-package/usr/local/bin \
-    && cp /dnsmasq-china-list/*.conf /build-package/backup/dnsmasq.d/
+    && cd /
 
 FROM alpine:latest
 
@@ -34,10 +29,12 @@ ENV CHINA_DNS=114.114.114.114 \
     TRUST_DNS=8.8.8.8
 
 COPY rootfs /
+COPY shared /
 COPY --from=builder  /build-package  /
 
-RUN apk add --no-cache dnsmasq libuv \
-    && chmod +x /usr/bin/entrypoint.sh
+RUN apk add --no-cache dnsmasq libuv curl \
+    && chmod +x /usr/bin/entrypoint.sh \
+    && chmod +x /usr/bin/update-china-list.sh 
 
 EXPOSE 53
 VOLUME /config
