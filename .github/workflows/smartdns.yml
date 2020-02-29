@@ -1,0 +1,31 @@
+name: SmartDNS
+
+on:
+    push:
+        branches:
+            - master
+        paths:
+            - smartdns/**
+            - .github/workflows/smartdns.yml
+
+env:
+    REPO_NAME: ly0007/smartdns
+
+jobs:
+    Build:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v2
+            - name: Setup BuildX
+              uses: crazy-max/ghaction-docker-buildx@v1
+              with:
+                version: latest
+            - name: Login
+              run: docker login -u ${{secrets.DOCKER_ID}} -p ${{secrets.DOCKER_PWD}}
+            - name: Build & Push
+              run: docker buildx build 
+               --platform=linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64 
+               --tag $REPO_NAME:latest 
+               --push 
+               ./smartdns
