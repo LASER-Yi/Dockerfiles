@@ -17,8 +17,9 @@ FROM alpine:latest
 COPY rootfs /
 COPY --from=builder  /build-package  /
 
-RUN apk add --no-cache dnsmasq openssl \
-    && chmod +x /usr/bin/entrypoint.sh
+RUN apk add --no-cache openssl curl \
+    && chmod +x /usr/bin/entrypoint.sh \
+    && chmod +x /usr/bin/update-gfwlist.sh
 
 EXPOSE 53
 VOLUME /config
