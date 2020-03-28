@@ -2,12 +2,13 @@ FROM alpine:latest as compilerOS
 
 LABEL maintainer="ly0007@yeah.net" \
     org.label-schema.name="qBittorrent-ee" \
-    org.label-schema.vcs-url="https://github.com/LASER-Yi/Dockerfiles" \
-    qbittorrent.version="4.2.2.10"
+    org.label-schema.vcs-url="https://github.com/LASER-Yi/Dockerfiles"
+
+ENV QBITTORRENT_VERSION=4.2.2.10
 
 COPY buildfs /
 
-RUN apk add --no-cache ca-certificates make g++ gcc qt5-qtsvg-dev boost-dev qt5-qttools-dev file curl \
+RUN apk add --no-cache ca-certificates build-base qt5-qtsvg-dev boost-dev qt5-qttools-dev file curl \
 &&  chmod a+x /download.sh && sh /download.sh && mkdir /qbtorrent \
 &&  tar -zxf /libtorrent.tar.gz -C /qbtorrent \
 &&  cd /qbtorrent \
@@ -20,7 +21,7 @@ RUN apk add --no-cache ca-certificates make g++ gcc qt5-qtsvg-dev boost-dev qt5-
 &&   cd  /qbtorrent \
 &&   mv $(find . -name qBittorrent-*) qbittorrent-ee \
 &&   cd  qbittorrent-ee \
-&&   ./configure --disable-gui --disable-stacktrace \
+&&   ./configure --disable-gui --disable-stacktrace CXXFLAGS="-std=c++14" \
 &&   make -j$(nproc) install \
 # copy dependence and other stuff
 &&   ldd /usr/local/bin/qbittorrent-nox |cut -d ">" -f 2|grep lib|cut -d "(" -f 1|xargs tar -chvf /qbtorrent/qbittorrent.tar \

@@ -11,8 +11,7 @@ download_libtorrent_code()
 
 download_qbittorrent_ee_code()
 {
-    local latest_tag=$(curl -s https://api.github.com/repos/c0re100/qBittorrent-Enhanced-Edition/releases/latest | grep 'tag_name' | cut -d\" -f4)
-    local download_url="https://github.com/c0re100/qBittorrent-Enhanced-Edition/archive/$latest_tag.zip"
+    local download_url="https://github.com/c0re100/qBittorrent-Enhanced-Edition/archive/release-$QBITTORRENT_VERSION.zip"
 
     local file_path="/qbitttorrent-ee.zip"
         if ! curl -sSL -o "$file_path" $download_url; then
