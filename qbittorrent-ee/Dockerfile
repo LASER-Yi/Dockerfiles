@@ -2,7 +2,8 @@ FROM alpine:latest as compilerOS
 
 LABEL maintainer="ly0007@yeah.net" \
     org.label-schema.name="qBittorrent-ee" \
-    org.label-schema.vcs-url="https://github.com/LASER-Yi/Dockerfiles"
+    org.label-schema.vcs-url="https://github.com/LASER-Yi/Dockerfiles" \
+    qbittorrent.version="4.2.2.10"
 
 COPY buildfs /
 
