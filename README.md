@@ -66,7 +66,7 @@ docker run -d --name TProxy \
 ly0007/tproxy
 ```
 
-Deploy full setup with Docker-Compose (Sample)
+Deploy transparent proxy with Shadowsocks-libev
 
 ``` yml
 version: '3' 
@@ -94,6 +94,35 @@ services:
     restart: unless-stopped
     environment:
       CHINADNS_OPTION: -r
+    volumes:
+      - /etc/tproxy:/config
+```
+
+Deploy transparent proxy using Clash
+
+```yml
+version: '2' 
+services: 
+  Clash:
+    image: dreamacro/clash:latest
+    network_mode: "host"
+    restart: unless-stopped
+    volumes:
+      - /etc/tproxy/clash:/root/.config/clash/
+      - /etc/tproxy/clash-ui:/ui
+  TProxy:
+    image: ly0007/tproxy:latest
+    cap_add:
+      - NET_ADMIN
+    network_mode: "host"
+    volumes:
+      - /etc/tproxy:/config
+  SmartDNS:
+    image: ly0007/smartdns:latest
+    cap_add:
+      - NET_ADMIN
+    network_mode: "host"
+    restart: unless-stopped
     volumes:
       - /etc/tproxy:/config
 ```
