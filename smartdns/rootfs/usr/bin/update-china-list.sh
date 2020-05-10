@@ -1,7 +1,7 @@
 # !/bin/sh
 # Update china acceleration list from dnsmasq
 
-PROXYDNS_NAME="proxydns"
+DIRECTDNS_NAME="chinadns"
 
 convertList() {
     url=$1
@@ -17,7 +17,7 @@ convertList() {
         sed -e 's|^server=\/\(.*\)\/.*$|\1|' $tempFile | egrep -v '^#' > $middleFile
 
         mkdir -p config/smartdns.d/
-        sed -e "s|\(.*\)|nameserver /\1/$PROXYDNS_NAME|" $middleFile > config/smartdns.d/$filename
+        sed -e "s|\(.*\)|nameserver /\1/$DIRECTDNS_NAME|" $middleFile > config/smartdns.d/$filename
 
         rm -f $middleFile
     fi
