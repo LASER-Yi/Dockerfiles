@@ -19,7 +19,8 @@ COPY --from=builder  /build-package  /
 
 RUN apk add --no-cache openssl curl \
     && chmod +x /usr/bin/entrypoint.sh \
-    && chmod +x /usr/bin/update-gfwlist.sh
+    && chmod +x /usr/bin/update-gfwlist.sh \
+    && chmod +x /usr/bin/update-china-list.sh
 
 EXPOSE 53
 VOLUME /config
