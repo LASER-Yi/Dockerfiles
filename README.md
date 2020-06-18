@@ -16,7 +16,7 @@ Link to [Docker HUB](https://hub.docker.com/u/ly0007)
 > * amd64
 
 ### qBittorrent-ee
-> qBittorrent-Enhanced-Edition multi-arch support
+> [qBittorrent-Enhanced-Edition multi-arch](https://github.com/c0re100/qBittorrent-Enhanced-Edition) support
 
 Quick Setup
 

@@ -4,7 +4,7 @@ LABEL maintainer="ly0007@yeah.net" \
     org.label-schema.name="qBittorrent-ee" \
     org.label-schema.vcs-url="https://github.com/LASER-Yi/Dockerfiles"
 
-ENV QBITTORRENT_VERSION=4.2.5.10
+ENV QBITTORRENT_VERSION=4.2.5.12
 
 COPY buildfs /
 
@@ -40,7 +40,8 @@ FROM alpine:latest
 ENV WEBUI_PORT=8989 \
     PEER_PORT=6881 \
     UID=1000 \
-    GID=1000
+    GID=1000 \
+    TZ=Asia/Shanghai
 
 COPY --from=compilerOS  /qbittorrent  /
 
