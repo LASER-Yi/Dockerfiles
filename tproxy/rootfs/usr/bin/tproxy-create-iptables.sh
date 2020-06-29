@@ -18,13 +18,17 @@ iptables -t mangle -A TPROXY-UDP -d 224/4 -j RETURN
 iptables -t mangle -A TPROXY-UDP -d 240/4 -j RETURN
 # custom iptables rule
 sh /config/custom-udp-rule.sh
-# pass proxy server port
-iptables -t mangle -A TPROXY-UDP -p udp --dport $SERVER_PORT -j RETURN
-# chnroute rule and custom ipset rule
-iptables -t mangle -A TPROXY-UDP -m set --match-set custom_direct dst -j RETURN
-iptables -t mangle -A TPROXY-UDP -p udp -m set --match-set custom_proxy dst -j TPROXY --tproxy-mark 0xff --on-ip 127.0.0.1 --on-port $REDIR_PORT
-iptables -t mangle -A TPROXY-UDP -m set --match-set chnroute4 dst -j RETURN
-# iptables -t mangle -A TPROXY-UDP -m set --match-set chnroute6 dst -j RETURN
+
+if [ $ENABLE_MINI_MODE -eq 0 ]
+then
+    # pass proxy server port
+    iptables -t mangle -A TPROXY-UDP -p udp --dport $SERVER_PORT -j RETURN
+    # chnroute rule and custom ipset rule
+    iptables -t mangle -A TPROXY-UDP -m set --match-set custom_direct dst -j RETURN
+    iptables -t mangle -A TPROXY-UDP -p udp -m set --match-set custom_proxy dst -j TPROXY --tproxy-mark 0xff --on-ip 127.0.0.1 --on-port $REDIR_PORT
+    iptables -t mangle -A TPROXY-UDP -m set --match-set chnroute4 dst -j RETURN
+    # iptables -t mangle -A TPROXY-UDP -m set --match-set chnroute6 dst -j RETURN
+fi
 # redir rule
 iptables -t mangle -A TPROXY-UDP -p udp -j TPROXY --tproxy-mark 0xff --on-ip 127.0.0.1 --on-port $REDIR_PORT
 # re-routing flow
@@ -43,17 +47,24 @@ iptables -t nat -A TPROXY-TCP -d 224/4 -j RETURN
 iptables -t nat -A TPROXY-TCP -d 240/4 -j RETURN
 # custom iptables rule
 sh /config/custom-tcp-rule.sh
-# pass proxy server port
-iptables -t nat -A TPROXY-TCP -p tcp --dport $SERVER_PORT -j RETURN
-# chnroute rule and custom ipset rule
-iptables -t nat -A TPROXY-TCP -m set --match-set custom_direct dst -j RETURN
-iptables -t nat -A TPROXY-TCP -p tcp -m set --match-set custom_proxy dst -j REDIRECT --to-ports $REDIR_PORT
-iptables -t nat -A TPROXY-TCP -m set --match-set chnroute4 dst -j RETURN
-# iptables -t nat -A TPROXY-TCP -m set --match-set chnroute6 dst -j RETURN
+
+if [ $ENABLE_MINI_MODE -eq 0 ]
+then
+    # pass proxy server port
+    iptables -t nat -A TPROXY-TCP -p tcp --dport $SERVER_PORT -j RETURN
+    # chnroute rule and custom ipset rule
+    iptables -t nat -A TPROXY-TCP -m set --match-set custom_direct dst -j RETURN
+    iptables -t nat -A TPROXY-TCP -p tcp -m set --match-set custom_proxy dst -j REDIRECT --to-ports $REDIR_PORT
+    iptables -t nat -A TPROXY-TCP -m set --match-set chnroute4 dst -j RETURN
+    # iptables -t nat -A TPROXY-TCP -m set --match-set chnroute6 dst -j RETURN
+fi
 # redir rule
 iptables -t nat -A TPROXY-TCP -p tcp -j REDIRECT --to-ports $REDIR_PORT
 # re-routing flow
-iptables -t nat -A OUTPUT -p tcp -j TPROXY-TCP
+if [ $ENABLE_OUTPUT_REROUTE -eq 1]
+then
+    iptables -t nat -A OUTPUT -p tcp -j TPROXY-TCP
+fi
 iptables -t nat -A PREROUTING -p tcp -s 192.168/16 -j TPROXY-TCP
 
 # enable gateway

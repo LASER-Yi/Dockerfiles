@@ -6,6 +6,8 @@ LABEL maintainer="ly0007@yeah.net" \
 
 COPY rootfs /
 
+RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.tuna.tsinghua.edu.cn/g' /etc/apk/repositories
+
 RUN apk add --no-cache ipset iptables curl \
     && chmod +x /usr/bin/entrypoint.sh /usr/bin/tproxy-* \
     && curl -sSL 'http://ftp.apnic.net/apnic/stats/apnic/delegated-apnic-latest' -o /tmp/chnip \
@@ -16,6 +18,11 @@ RUN apk add --no-cache ipset iptables curl \
 VOLUME /config
 
 ENV REDIR_PORT=10800 \
-    SERVER_PORT=10863
+    SERVER_PORT=10863 \
+    ENABLE_MINI_MODE=1 \
+    ENABLE_OUTPUT_REROUTE=0
+
+HEALTHCHECK --interval=600s --timeout=2s --retries=3 --start-period=40s \
+    CMD curl -f google.com || exit 1
 
 ENTRYPOINT [ "entrypoint.sh" ]
