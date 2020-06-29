@@ -46,9 +46,6 @@ docker pull ly0007/shadowsocks-libev:latest
 docker pull ly0007/shadowsocks-libev:latest-ssr
 ```
 
-### ChinaDNS+Dnsmasq
-> All-in-One DNS Server using ChinaDNS
-
 ### TProxy
 > All-in-One TProxy Gateway
 
