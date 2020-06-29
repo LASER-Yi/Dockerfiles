@@ -61,7 +61,7 @@ fi
 # redir rule
 iptables -t nat -A TPROXY-TCP -p tcp -j REDIRECT --to-ports $REDIR_PORT
 # re-routing flow
-if [ $ENABLE_OUTPUT_REROUTE -eq 1]
+if [ $ENABLE_OUTPUT_REROUTE -eq 1 ]
 then
     iptables -t nat -A OUTPUT -p tcp -j TPROXY-TCP
 fi

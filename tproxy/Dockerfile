@@ -22,7 +22,4 @@ ENV REDIR_PORT=10800 \
     ENABLE_MINI_MODE=1 \
     ENABLE_OUTPUT_REROUTE=0
 
-HEALTHCHECK --interval=600s --timeout=2s --retries=3 --start-period=40s \
-    CMD curl -f google.com || exit 1
-
 ENTRYPOINT [ "entrypoint.sh" ]
