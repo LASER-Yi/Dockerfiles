@@ -7,7 +7,7 @@
 
 🐳 A collection of Dockerfile build for raspberrypi and other platforms
 
-Link to [Docker HUB](https://hub.docker.com/u/ly0007)
+[Docker HUB](https://hub.docker.com/u/ly0007)
 
 > All images in this repo support following CPU architecture:
 > * arm32v6
@@ -16,7 +16,7 @@ Link to [Docker HUB](https://hub.docker.com/u/ly0007)
 > * amd64
 
 ### qBittorrent-ee
-> [qBittorrent-Enhanced-Edition multi-arch](https://github.com/c0re100/qBittorrent-Enhanced-Edition) support
+> [qBittorrent-Enhanced-Edition](https://github.com/c0re100/qBittorrent-Enhanced-Edition)  multi-arch support
 
 Quick Setup
 
@@ -36,6 +36,7 @@ If you need Python3 to drive search plugin, please download ``ly0007/qbittorrent
 
 ### Shadowsocks-libev
 > Shadowsocks-libev multi-arch support
+> No longer maintain
 
 Both SS & SSR version are included in this image
 ```
@@ -47,11 +48,12 @@ docker pull ly0007/shadowsocks-libev:latest-ssr
 ```
 
 ### TProxy
-> All-in-One TProxy Gateway
+> All-in-One TProxy Ruleset
 
 Auto configurate TProxy to redirect incoming tcp socket and tproxy udp to given REDDIR_PORT port.
 
-Quick Setup
+##### Quick Setup
+
 ```
 docker run -d --name TProxy \
 --net host
@@ -63,7 +65,16 @@ docker run -d --name TProxy \
 ly0007/tproxy
 ```
 
-Deploy transparent proxy with Shadowsocks-libev
+##### Environment
+
+| Env                   | Desc                                                         | Default |
+| --------------------- | ------------------------------------------------------------ | ------- |
+| REDIR_PORT            | Redirect traffic to this port                                | 10800   |
+| SERVER_PORT           | Remote server port (Do nothing when **ENABLE_OUTPUT_REROUTE** is off) | 10863   |
+| ENABLE_MINI_MODE      | Redirect only (disable GEOIP diversion)                      | TRUE    |
+| ENABLE_OUTPUT_REROUTE | Redirect local network traffic                               | FALSE   |
+
+##### Deploy transparent proxy with Shadowsocks-libev (no recommanded)
 
 ``` yml
 version: '3' 
@@ -95,7 +106,9 @@ services:
       - /etc/tproxy:/config
 ```
 
-Deploy transparent proxy using Clash
+##### Deploy transparent proxy using Clash
+
+Please refers to [Wiki](https://github.com/LASER-Yi/Dockerfiles/wiki) for more detail 
 
 ```yml
 version: '2' 
@@ -114,20 +127,12 @@ services:
     network_mode: "host"
     volumes:
       - /etc/tproxy:/config
-  SmartDNS:
-    image: ly0007/smartdns:latest
-    cap_add:
-      - NET_ADMIN
-    network_mode: "host"
-    restart: unless-stopped
-    volumes:
-      - /etc/tproxy:/config
 ```
 
 **This Image will modify your iptables and ipset, please make sure NET_ADMIN is enable**
 
 ### Subwatcher
-> Subtitle auto-download program base on [Subfinder](https://github.com/ausaki/subfinder)
+> Subtitle auto-download program based on [Subfinder](https://github.com/ausaki/subfinder)
 
 Quick Setup
 ```
