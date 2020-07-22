@@ -2,7 +2,10 @@
 
 echo "Clearing iptables..."
 # Remove TCP
-iptables -t nat -D OUTPUT -p tcp -j TPROXY-TCP
+if [ $ENABLE_OUTPUT_REROUTE -eq 1 ]
+then
+    iptables -t nat -D OUTPUT -p tcp -j TPROXY-TCP
+fi
 iptables -t nat -D PREROUTING -p tcp -s 192.168/16 -j TPROXY-TCP
 iptables -t nat -F TPROXY-TCP
 iptables -t nat -X TPROXY-TCP
