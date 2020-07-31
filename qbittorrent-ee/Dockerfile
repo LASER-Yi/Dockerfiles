@@ -4,7 +4,7 @@ LABEL maintainer="ly0007@yeah.net" \
     org.label-schema.name="qBittorrent-ee" \
     org.label-schema.vcs-url="https://github.com/LASER-Yi/Dockerfiles"
 
-ENV QBITTORRENT_VERSION=4.2.5.12
+ENV QBITTORRENT_VERSION=4.2.5.13
 
 COPY buildfs /
 
