@@ -25,13 +25,13 @@ jobs:
               run: docker login -u ${{secrets.DOCKER_ID}} -p ${{secrets.DOCKER_PWD}}
             - name: Build & Push
               run: docker buildx build 
-               --platform=linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64 
+               --platform=linux/amd64,linux/arm/v7,linux/arm64 
                --tag $REPO_NAME:latest 
                --push 
                ./shadowsocks-libev 
             - name: Build SSR & Push
               run: docker buildx build 
-               --platform=linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64 
+               --platform=linux/amd64,linux/arm/v7,linux/arm64 
                --tag $REPO_NAME:latest-ssr 
                --push 
                ./shadowsocks-libev 

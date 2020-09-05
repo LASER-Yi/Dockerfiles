@@ -10,7 +10,7 @@
 [Docker HUB](https://hub.docker.com/u/ly0007)
 
 > All images in this repo support following CPU architecture:
-> * arm32v6
+> * arm32v6 (deprecated)
 > * arm32v7
 > * arm64v8
 > * amd64
