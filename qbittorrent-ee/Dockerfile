@@ -59,5 +59,7 @@ VOLUME /downloads /config
 # donot expose port cause we are using host network
 EXPOSE $WEBUI_PORT  $PEER_PORT  $PEER_PORT/udp
 
+ENTRYPOINT "/init"
+
 HealthCheck --interval=60s --timeout=3s --retries=3 \
     CMD curl -fs http://localhost:{$WEBUI_PORT} || exit 1
