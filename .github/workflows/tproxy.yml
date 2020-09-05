@@ -19,9 +19,10 @@ jobs:
             - name: Checkout
               uses: actions/checkout@v2
             - name: Setup BuildX
-              uses: crazy-max/ghaction-docker-buildx@v1
+              uses: crazy-max/ghaction-docker-buildx@latest
               with:
-                version: latest
+                buildx-version: latest
+                qemu-version: latest
             - name: Login
               run: docker login -u ${{secrets.DOCKER_ID}} -p ${{secrets.DOCKER_PWD}}
             - name: Build & Push
