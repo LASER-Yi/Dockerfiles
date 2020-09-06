@@ -19,9 +19,6 @@ mkdir -p \
 sed -i "s|Connection\\\PortRangeMin=.*|Connection\\\PortRangeMin=${PEER_PORT}|i" /config/.config/qBittorrent/qBittorrent.conf
 sed -i "s|Downloads\\\SavePath=.*|Downloads\\\SavePath=/downloads|i" /config/.config/qBittorrent/qBittorrent.conf
 
-getent group abc > /dev/null || addgroup -g ${GID} abc
-getent passwd abc > /dev/null || adduser -h /config -s /bin/sh -G abc -D -u ${UID} abc
+chown -R ${UID}:${GID} /config
 
-chown -R abc:abc /config
-
-exec su abc -c "qbittorrent-nox --webui-port=${WEBUI_PORT}"
+exec s6-setuidgid ${UID}:${GID} qbittorrent-nox --webui-port=${WEBUI_PORT}

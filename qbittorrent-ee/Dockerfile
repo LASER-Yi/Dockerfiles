@@ -50,7 +50,7 @@ ENV WEBUI_PORT=8989 \
 
 COPY --from=compileOS  /qbittorrent  /
 
-RUN apk add --no-cache tzdata curl \
+RUN apk add --no-cache tzdata curl s6 \
     && rm -rf /var/cache/apk/* \
     && rm -rf /tmp/*
 
