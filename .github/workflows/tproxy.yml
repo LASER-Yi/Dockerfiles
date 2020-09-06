@@ -19,7 +19,7 @@ jobs:
             - name: Checkout
               uses: actions/checkout@v2
             - name: Setup BuildX
-              uses: crazy-max/ghaction-docker-buildx@latest
+              uses: crazy-max/ghaction-docker-buildx@v3
               with:
                 buildx-version: latest
                 qemu-version: latest
