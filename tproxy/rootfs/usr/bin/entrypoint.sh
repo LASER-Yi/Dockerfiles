@@ -15,7 +15,7 @@ exit 143;
 # exit when fail
 set -eu
 
-if [ $ENABLE_MINI_MODE -eq 0 ]
+if [ $CHNROUTE_MODE -eq 0 ]
 then
   # copy custom file if no exist
   [[ ! -f /config/custom_direct.txt ]] && cp -r /backup/custom* /config
@@ -24,7 +24,7 @@ then
   [[ ! -f /config/chnroute4.txt ]] && cp -r /backup/chnroute4.txt /config
   [[ ! -f /config/chnroute6.txt ]] && cp -r /backup/chnroute6.txt /config
 else
-  # only update custom rule in ENABLE_MINI_MODE
+  # only update custom rule in CHNROUTE_MODE
   [[ ! -f /config/custom-tcp-rule.txt ]] && cp -r /backup/custom-* /config
 fi
 # setup
@@ -32,7 +32,7 @@ chmod 755 /config/custom-*
 
 
 
-if [ $ENABLE_MINI_MODE -eq 0 ]
+if [ $CHNROUTE_MODE -eq 0 ]
 then
   # setting up tproxy iptables
   tproxy-start.sh

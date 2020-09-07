@@ -2,7 +2,7 @@
 
 echo "Clearing iptables..."
 # Remove TCP
-if [ $ENABLE_OUTPUT_REROUTE -eq 1 ]
+if [ $OUTPUT_CHAIN_REROUTE -eq 1 ]
 then
     iptables -t nat -D OUTPUT -p tcp -j TPROXY-TCP
 fi

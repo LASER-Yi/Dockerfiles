@@ -70,9 +70,9 @@ ly0007/tproxy
 | Env                   | Desc                                                         | Default |
 | --------------------- | ------------------------------------------------------------ | ------- |
 | REDIR_PORT            | Redirect traffic to this port                                | 10800   |
-| SERVER_PORT           | Remote server port (Do nothing when **ENABLE_OUTPUT_REROUTE** is off) | 10863   |
-| ENABLE_MINI_MODE      | Redirect only (disable GEOIP diversion)                      | TRUE    |
-| ENABLE_OUTPUT_REROUTE | Redirect local network traffic                               | FALSE   |
+| SERVER_PORT           | Remote server port (Do nothing when **OUTPUT_CHAIN_REROUTE** is off) | 10863   |
+| CHNROUTE_MODE      | Redirect based on Chnroute                      | TRUE    |
+| OUTPUT_CHAIN_REROUTE | Redirect local machine traffic                               | FALSE   |
 
 ##### Deploy transparent proxy with Shadowsocks-libev (no recommanded)
 
