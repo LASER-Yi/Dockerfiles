@@ -6,7 +6,7 @@ echo "Removing TProxy rules..."
 
 tproxy-clear-iptables.sh
 
-if [ $CHNROUTE_MODE -eq 0 ]
+if [ $CHNROUTE_MODE -eq 1 ]
 then
     tproxy-delete-ipset.sh
 fi

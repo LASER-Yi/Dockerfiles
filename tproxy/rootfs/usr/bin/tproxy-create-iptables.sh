@@ -21,13 +21,13 @@ iptables -t mangle -A TPROXY-UDP -d 240/4 -j RETURN
 # custom iptables rule
 sh /config/custom-udp-rule.sh
 
-if [ $OUTPUT_CHAIN_REROUTE -eq 1]
+if [ $OUTPUT_CHAIN_REROUTE -eq 1 ]
 then
     # pass proxy server port
     iptables -t mangle -A TPROXY-UDP -p udp --dport $SERVER_PORT -j RETURN
 fi
 
-if [ $CHNROUTE_MODE -eq 0 ]
+if [ $CHNROUTE_MODE -eq 1 ]
 then
     # chnroute rule and custom ipset rule
     iptables -t mangle -A TPROXY-UDP -m set --match-set custom_direct dst -j RETURN
@@ -54,13 +54,13 @@ iptables -t nat -A TPROXY-TCP -d 240/4 -j RETURN
 # custom iptables rule
 sh /config/custom-tcp-rule.sh
 
-if [ $OUTPUT_CHAIN_REROUTE -eq 1]
+if [ $OUTPUT_CHAIN_REROUTE -eq 1 ]
 then
     # pass proxy server port
     iptables -t nat -A TPROXY-TCP -p tcp --dport $SERVER_PORT -j RETURN
 fi
 
-if [ $CHNROUTE_MODE -eq 0 ]
+if [ $CHNROUTE_MODE -eq 1 ]
 then
     # chnroute rule and custom ipset rule
     iptables -t nat -A TPROXY-TCP -m set --match-set custom_direct dst -j RETURN
