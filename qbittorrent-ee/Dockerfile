@@ -46,6 +46,7 @@ ENV WEBUI_PORT=8989 \
     PEER_PORT=6881 \
     UID=1000 \
     GID=1000 \
+    HOME=\config \
     TZ=Asia/Shanghai
 
 COPY --from=compileOS  /qbittorrent  /
