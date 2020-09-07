@@ -6,6 +6,8 @@ ENV QBITTORRENT_VERSION=4.2.5.15 \
 ADD https://github.com/c0re100/qBittorrent-Enhanced-Edition/archive/release-${QBITTORRENT_VERSION}.zip /
 ADD https://github.com/arvidn/libtorrent/releases/download/libtorrent-${LIBTORRENT_VERSION}/libtorrent-rasterbar-${LIBTORRENT_VERSION}.tar.gz /
 
+RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.tuna.tsinghua.edu.cn/g' /etc/apk/repositories
+
 RUN apk add --no-cache ca-certificates build-base qt5-qtsvg-dev boost-dev qt5-qttools-dev file \
 &&  mkdir /sources
 
@@ -46,7 +48,7 @@ ENV WEBUI_PORT=8989 \
     PEER_PORT=6881 \
     UID=1000 \
     GID=1000 \
-    HOME=\config \
+    UMASK=022 \
     TZ=Asia/Shanghai
 
 COPY --from=compileOS  /qbittorrent  /

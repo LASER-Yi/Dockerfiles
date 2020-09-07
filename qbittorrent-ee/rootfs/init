@@ -21,4 +21,10 @@ sed -i "s|Downloads\\\SavePath=.*|Downloads\\\SavePath=/downloads|i" /config/.co
 
 chown -R ${UID}:${GID} /config
 
-exec s6-setuidgid ${UID}:${GID} qbittorrent-nox --webui-port=${WEBUI_PORT}
+# Umask
+UMASK=${UMASK:-022}
+umask "$UMASK"
+
+export HOME="/config"
+
+exec s6-setuidgid ${UID}:${GID} qbittorrent-nox --webui-port=${WEBUI_PORT:-8989}
