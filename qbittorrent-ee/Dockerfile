@@ -1,6 +1,6 @@
 FROM alpine:latest as compileOS
 
-ENV QBITTORRENT_VERSION=4.2.5.15 \
+ENV QBITTORRENT_VERSION=4.2.5.16 \
     LIBTORRENT_VERSION=1.2.10
 
 ADD https://github.com/c0re100/qBittorrent-Enhanced-Edition/archive/release-${QBITTORRENT_VERSION}.zip /
