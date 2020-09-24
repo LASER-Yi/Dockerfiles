@@ -57,7 +57,7 @@ RUN apk add --no-cache tzdata curl s6 \
     && rm -rf /var/cache/apk/* \
     && rm -rf /tmp/*
 
-VOLUME /downloads /config
+VOLUME /config
 
 # donot expose port cause we are using host network
 EXPOSE $WEBUI_PORT  $PEER_PORT  $PEER_PORT/udp
