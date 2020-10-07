@@ -4,8 +4,6 @@
 
 FROM alpine:latest
 
-RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.tuna.tsinghua.edu.cn/g' /etc/apk/repositories
-
 RUN apk add --no-cache --virtual .build-deps \
         build-base \
         curl \
@@ -18,7 +16,6 @@ RUN apk add --no-cache --virtual .build-deps \
     tar --strip-components=1 -C /tmp/strongswan -xjf /tmp/strongswan.tar.bz2 && \
     cd /tmp/strongswan && \
     ./configure --prefix=/usr --sysconfdir=/config --libexecdir=/usr/lib --with-ipsecdir=/usr/lib/strongswan \
-        --enable-aesni \
         --enable-chapoly \
         --enable-cmd \
         --enable-curl \
@@ -54,6 +51,7 @@ RUN apk add --no-cache --virtual .build-deps \
         iptables \
         ip6tables \
         iproute2 \
+        curl \
         openssl && \
     rm -rf /tmp/* && \
     rm -rf /var/cache/apk/*
