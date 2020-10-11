@@ -9,6 +9,7 @@ ip route add local 0/0 dev lo table 100
 
 # === UDP === 
 iptables -t mangle -N TPROXY-UDP
+iptables -t mangle -F TPROXY-UDP
 # pass local address
 iptables -t mangle -A TPROXY-UDP -d 0/8 -j RETURN
 iptables -t mangle -A TPROXY-UDP -d 127/8 -j RETURN
@@ -42,6 +43,7 @@ iptables -t mangle -A PREROUTING -p udp -s 192.168/16 -j TPROXY-UDP
 
 # === TCP ===
 iptables -t nat -N TPROXY-TCP
+iptables -t nat -F TPROXY-TCP
 # pass local address
 iptables -t nat -A TPROXY-TCP -d 0/8 -j RETURN
 iptables -t nat -A TPROXY-TCP -d 127/8 -j RETURN
