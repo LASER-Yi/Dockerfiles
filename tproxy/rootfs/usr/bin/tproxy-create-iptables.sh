@@ -78,6 +78,3 @@ then
 fi
 
 iptables -t nat -A PREROUTING -p tcp -s 192.168/16 -j TPROXY-TCP
-
-# enable gateway
-iptables -t nat -A POSTROUTING -s 192.168/16 -j MASQUERADE
