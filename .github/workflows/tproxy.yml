@@ -31,3 +31,9 @@ jobs:
                --tag $REPO_NAME:latest 
                --push 
                ./tproxy
+            - name: Build TUN & Push
+              run: docker buildx build 
+               --platform=linux/amd64,linux/arm/v7,linux/arm64 
+               --tag $REPO_NAME:tun 
+               --push 
+               ./tproxy-tun

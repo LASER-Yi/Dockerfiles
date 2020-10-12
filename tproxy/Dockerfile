@@ -4,7 +4,7 @@ LABEL maintainer="ly0007@yeah.net" \
     org.label-schema.name="TProxy" \
     org.label-schema.vcs-url="https://github.com/LASER-Yi/Dockerfiles"
 
-COPY rootfs /
+COPY redir /
 
 RUN apk add --no-cache ipset iptables curl \
     && chmod +x /usr/bin/entrypoint.sh /usr/bin/tproxy-* \

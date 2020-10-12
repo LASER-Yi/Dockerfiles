@@ -1,0 +1,46 @@
+#! /bin/sh
+
+trap "sigterm_handler" TERM
+
+sigterm_handler() {
+/usr/bin/stop-tun
+exit 143;
+}
+
+config_tun() {
+    ip route replace default dev utun table $ROUTE_TABLE
+    ifconfig $TUN_DEVICE_NAME mtu $MTU
+}
+
+set -eu
+
+ip rule add fwmark $FWMARK table $ROUTE_TABLE
+config_tun
+iptables -t mangle -N TUN_ALL
+
+iptables -t mangle -F TUN_ALL
+iptables -t mangle -A TUN_ALL -d 0/8 -j RETURN
+iptables -t mangle -A TUN_ALL -d 10/8 -j RETURN
+iptables -t mangle -A TUN_ALL -d 127/8 -j RETURN
+iptables -t mangle -A TUN_ALL -d 169.254/16 -j RETURN
+iptables -t mangle -A TUN_ALL -d 172.16/12 -j RETURN
+iptables -t mangle -A TUN_ALL -d 192.168/16 -j RETURN
+iptables -t mangle -A TUN_ALL -d 224/4 -j RETURN
+iptables -t mangle -A TUN_ALL -d 240/4 -j RETURN
+iptables -t mangle -A TUN_ALL -m addrtype --dst-type BROADCAST -j RETURN
+iptables -t mangle -A TUN_ALL -j MARK --set-mark $FWMARK
+
+iptables -t mangle -A PREROUTING -s $LOCAL_CIDR -j TUN_ALL
+
+echo "done"
+
+set +eu
+
+while true
+do
+    if ! ip route show table $ROUTE_TABLE | grep $TUN_DEVICE_NAME >> /dev/null
+    then
+        config_tun
+    fi
+    sleep 5s
+done
