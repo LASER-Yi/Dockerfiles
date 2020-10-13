@@ -2,9 +2,9 @@
 
 echo "exit..."
 
-iptables -t mangle -D PREROUTING -s $LOCAL_CIDR -j TUN_ALL
-iptables -t mangle -F TUN_ALL
-iptables -t mangle -X TUN_ALL
+iptables -t mangle -D PREROUTING -s $LOCAL_CIDR -j TPROXY_TUN
+iptables -t mangle -F TPROXY_TUN
+iptables -t mangle -X TPROXY_TUN
 
 ip route del default dev utun table $ROUTE_TABLE
 ip rule del fwmark $FWMARK table $ROUTE_TABLE

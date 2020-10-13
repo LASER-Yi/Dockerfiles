@@ -37,3 +37,9 @@ jobs:
                --tag $REPO_NAME:tun 
                --push 
                ./tproxy-tun
+            - name: Build Mangle & Push
+              run: docker buildx build 
+               --platform=linux/amd64,linux/arm/v7,linux/arm64 
+               --tag $REPO_NAME:mangle 
+               --push 
+               ./tproxy-mangle

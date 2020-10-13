@@ -1,0 +1,10 @@
+#! /bin/sh
+
+echo "exit..."
+
+iptables -t mangle -D PREROUTING -s $LOCAL_CIDR -j TPROXY_MANGLE
+iptables -t mangle -F TPROXY_MANGLE
+iptables -t mangle -X TPROXY_MANGLE
+
+ip route del local default dev lo table $ROUTE_TABLE
+ip rule del fwmark $FWMARK table $ROUTE_TABLE

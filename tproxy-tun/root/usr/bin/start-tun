@@ -16,21 +16,21 @@ set -eu
 
 ip rule add fwmark $FWMARK table $ROUTE_TABLE
 config_tun
-iptables -t mangle -N TUN_ALL
+iptables -t mangle -N TPROXY_TUN
 
-iptables -t mangle -F TUN_ALL
-iptables -t mangle -A TUN_ALL -d 0/8 -j RETURN
-iptables -t mangle -A TUN_ALL -d 10/8 -j RETURN
-iptables -t mangle -A TUN_ALL -d 127/8 -j RETURN
-iptables -t mangle -A TUN_ALL -d 169.254/16 -j RETURN
-iptables -t mangle -A TUN_ALL -d 172.16/12 -j RETURN
-iptables -t mangle -A TUN_ALL -d 192.168/16 -j RETURN
-iptables -t mangle -A TUN_ALL -d 224/4 -j RETURN
-iptables -t mangle -A TUN_ALL -d 240/4 -j RETURN
-iptables -t mangle -A TUN_ALL -m addrtype --dst-type BROADCAST -j RETURN
-iptables -t mangle -A TUN_ALL -j MARK --set-mark $FWMARK
+iptables -t mangle -F TPROXY_TUN
+iptables -t mangle -A TPROXY_TUN -d 0/8 -j RETURN
+iptables -t mangle -A TPROXY_TUN -d 10/8 -j RETURN
+iptables -t mangle -A TPROXY_TUN -d 127/8 -j RETURN
+iptables -t mangle -A TPROXY_TUN -d 169.254/16 -j RETURN
+iptables -t mangle -A TPROXY_TUN -d 172.16/12 -j RETURN
+iptables -t mangle -A TPROXY_TUN -d 192.168/16 -j RETURN
+iptables -t mangle -A TPROXY_TUN -d 224/4 -j RETURN
+iptables -t mangle -A TPROXY_TUN -d 240/4 -j RETURN
+iptables -t mangle -A TPROXY_TUN -m addrtype --dst-type BROADCAST -j RETURN
+iptables -t mangle -A TPROXY_TUN -j MARK --set-mark $FWMARK
 
-iptables -t mangle -A PREROUTING -s $LOCAL_CIDR -j TUN_ALL
+iptables -t mangle -A PREROUTING -s $LOCAL_CIDR -j TPROXY_TUN
 
 echo "done"
 

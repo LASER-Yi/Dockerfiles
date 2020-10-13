@@ -1,0 +1,40 @@
+#! /bin/sh
+
+trap "sigterm_handler" TERM
+
+sigterm_handler() {
+/usr/bin/stop-mangle
+exit 143;
+}
+
+set -eu
+
+ip rule add fwmark $FWMARK table $ROUTE_TABLE
+ip route add $ROUTE_RULE 0/0 dev lo table $ROUTE_TABLE
+
+iptables -t mangle -N TPROXY_MANGLE
+
+iptables -t mangle -F TPROXY_MANGLE
+iptables -t mangle -A TPROXY_MANGLE -d 0/8 -j RETURN
+iptables -t mangle -A TPROXY_MANGLE -d 10/8 -j RETURN
+iptables -t mangle -A TPROXY_MANGLE -d 127/8 -j RETURN
+iptables -t mangle -A TPROXY_MANGLE -d 169.254/16 -j RETURN
+iptables -t mangle -A TPROXY_MANGLE -d 172.16/12 -j RETURN
+iptables -t mangle -A TPROXY_MANGLE -d 192.168/16 -j RETURN
+iptables -t mangle -A TPROXY_MANGLE -d 224/4 -j RETURN
+iptables -t mangle -A TPROXY_MANGLE -d 240/4 -j RETURN
+iptables -t mangle -A TPROXY_MANGLE -m addrtype --dst-type BROADCAST -j RETURN
+
+iptables -t mangle -A TPROXY_MANGLE -p udp -j TPROXY --tproxy-mark $FWMARK --on-ip $REDIR_ADDRESS --on-port $REDIR_PORT
+iptables -t mangle -A TPROXY_MANGLE -p tcp -j TPROXY --tproxy-mark $FWMARK --on-ip $REDIR_ADDRESS --on-port $REDIR_PORT
+
+iptables -t mangle -A PREROUTING -s $LOCAL_CIDR -j TPROXY_MANGLE
+
+echo "done"
+
+set +eu
+
+while true
+do
+  tail -f /dev/null & wait ${!}
+done
