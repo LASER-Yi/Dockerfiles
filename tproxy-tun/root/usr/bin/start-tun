@@ -44,5 +44,5 @@ do
     then
         config_tun
     fi
-    sleep 1s
+    sleep 4s
 done
