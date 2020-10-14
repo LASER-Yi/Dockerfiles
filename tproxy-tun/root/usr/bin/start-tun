@@ -12,6 +12,8 @@ config_tun() {
     ifconfig $TUN_DEVICE_NAME mtu $MTU
 }
 
+/usr/bin/stop-tun >> /dev/null 2>&1
+
 set -eu
 
 ip rule add fwmark $FWMARK table $ROUTE_TABLE
