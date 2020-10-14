@@ -10,6 +10,8 @@ RUN apk add --no-cache ipset iptables curl \
     && chmod +x /usr/bin/start-tun /usr/bin/stop-tun
 
 ENV TUN_DEVICE_NAME="utun" \
+    TUN_IPCIDR=198.18.0.0/16 \
+    TUN_IP_ADDRESS=198.18.0.1 \
     MTU=9000 \
     LOCAL_CIDR="192.168.0.0/16" \
     ROUTE_TABLE=100 \

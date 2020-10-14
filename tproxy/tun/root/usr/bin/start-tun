@@ -8,7 +8,8 @@ exit 143;
 }
 
 config_tun() {
-    ip route replace default dev utun table $ROUTE_TABLE
+    ip route replace $TUN_IPCIDR proto kernel src $TUN_IP_ADDRESS dev $TUN_DEVICE_NAME
+    ip route replace default dev $TUN_DEVICE_NAME table $ROUTE_TABLE
     ifconfig $TUN_DEVICE_NAME mtu $MTU
 }
 
