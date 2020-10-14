@@ -7,8 +7,6 @@ on:
         paths:
             - chinadns+dnsmasq/**
             - tproxy/**
-            - tproxy-tun/**
-            - tproxy-mangle/**
             - .github/workflows/tproxy.yml
 
 env:
@@ -32,16 +30,16 @@ jobs:
                --platform=linux/amd64,linux/arm/v7,linux/arm64 
                --tag $REPO_NAME:latest 
                --push 
-               ./tproxy
+               ./tproxy/legacy
             - name: Build TUN & Push
               run: docker buildx build 
                --platform=linux/amd64,linux/arm/v7,linux/arm64 
                --tag $REPO_NAME:tun 
                --push 
-               ./tproxy-tun
+               ./tproxy/tun
             - name: Build Mangle & Push
               run: docker buildx build 
                --platform=linux/amd64,linux/arm/v7,linux/arm64 
                --tag $REPO_NAME:mangle 
                --push 
-               ./tproxy-mangle
+               ./tproxy/mangle
