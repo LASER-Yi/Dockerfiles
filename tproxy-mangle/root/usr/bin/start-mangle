@@ -11,9 +11,6 @@ exit 143;
 
 set -eu
 
-ip rule add fwmark $FWMARK table $ROUTE_TABLE
-ip route add $ROUTE_RULE 0/0 dev lo table $ROUTE_TABLE
-
 iptables -t mangle -N TPROXY_MANGLE
 
 iptables -t mangle -F TPROXY_MANGLE
@@ -31,6 +28,9 @@ iptables -t mangle -A TPROXY_MANGLE -p udp -j TPROXY --tproxy-mark $FWMARK --on-
 iptables -t mangle -A TPROXY_MANGLE -p tcp -j TPROXY --tproxy-mark $FWMARK --on-ip $REDIR_ADDRESS --on-port $REDIR_PORT
 
 iptables -t mangle -A PREROUTING -s $LOCAL_CIDR -j TPROXY_MANGLE
+
+ip rule add fwmark $FWMARK table $ROUTE_TABLE
+ip route add $ROUTE_RULE 0/0 dev lo table $ROUTE_TABLE
 
 echo "done"
 

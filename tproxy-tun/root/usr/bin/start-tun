@@ -16,8 +16,6 @@ config_tun() {
 
 set -eu
 
-ip rule add fwmark $FWMARK table $ROUTE_TABLE
-config_tun
 iptables -t mangle -N TPROXY_TUN
 
 iptables -t mangle -F TPROXY_TUN
@@ -33,6 +31,9 @@ iptables -t mangle -A TPROXY_TUN -m addrtype --dst-type BROADCAST -j RETURN
 iptables -t mangle -A TPROXY_TUN -j MARK --set-mark $FWMARK
 
 iptables -t mangle -A PREROUTING -s $LOCAL_CIDR -j TPROXY_TUN
+
+ip rule add fwmark $FWMARK table $ROUTE_TABLE
+config_tun
 
 echo "done"
 
