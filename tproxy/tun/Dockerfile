@@ -1,12 +1,12 @@
 FROM alpine:latest
 
 LABEL maintainer="ly0007@yeah.net" \
-    org.label-schema.name="TProxy-Tun" \
+    org.label-schema.name="TProxy-TUN" \
     org.label-schema.vcs-url="https://github.com/LASER-Yi/Dockerfiles"
 
 COPY root /
 
-RUN apk add --no-cache ipset iptables curl \
+RUN apk add --no-cache iptables \
     && chmod +x /usr/bin/start-tun /usr/bin/stop-tun
 
 ENV TUN_DEVICE_NAME="utun" \

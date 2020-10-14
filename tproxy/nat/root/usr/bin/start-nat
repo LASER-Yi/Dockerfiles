@@ -1,0 +1,37 @@
+#! /bin/sh
+
+trap "sigterm_handler" TERM
+
+sigterm_handler() {
+/usr/bin/stop-tun
+exit 143;
+}
+
+/usr/bin/stop-nat >> /dev/null 2>&1
+
+set -eu
+
+iptables -t nat -N TPROXY_NAT
+
+iptables -t nat -F TPROXY_NAT
+iptables -t nat -A TPROXY_NAT -d 0/8 -j RETURN
+iptables -t nat -A TPROXY_NAT -d 10/8 -j RETURN
+iptables -t nat -A TPROXY_NAT -d 127/8 -j RETURN
+iptables -t nat -A TPROXY_NAT -d 169.254/16 -j RETURN
+iptables -t nat -A TPROXY_NAT -d 172.16/12 -j RETURN
+iptables -t nat -A TPROXY_NAT -d 192.168/16 -j RETURN
+iptables -t nat -A TPROXY_NAT -d 224/4 -j RETURN
+iptables -t nat -A TPROXY_NAT -d 240/4 -j RETURN
+
+iptables -t nat -A TPROXY_NAT -p tcp -j REDIRECT --to-ports $REDIR_PORT
+
+iptables -t nat -A PREROUTING -p tcp -s $LOCAL_CIDR -j TPROXY_NAT
+
+echo "done"
+
+set +eu
+
+while true
+do
+  tail -f /dev/null & wait ${!}
+done

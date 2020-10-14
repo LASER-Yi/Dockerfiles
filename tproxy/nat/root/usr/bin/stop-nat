@@ -1,0 +1,7 @@
+#! /bin/sh
+
+echo "exit..."
+
+iptables -t nat -D PREROUTING -s $LOCAL_CIDR -j TPROXY_NAT
+iptables -t nat -F TPROXY_NAT
+iptables -t nat -X TPROXY_NAT

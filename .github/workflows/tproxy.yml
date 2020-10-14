@@ -37,3 +37,9 @@ jobs:
                --tag $REPO_NAME:mangle 
                --push 
                ./tproxy/mangle
+            - name: Build NAT & Push
+              run: docker buildx build 
+               --platform=linux/amd64,linux/arm/v7,linux/arm64 
+               --tag $REPO_NAME:nat 
+               --push 
+               ./tproxy/nat

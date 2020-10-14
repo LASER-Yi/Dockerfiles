@@ -1,12 +1,12 @@
 FROM alpine:latest
 
 LABEL maintainer="ly0007@yeah.net" \
-    org.label-schema.name="TProxy-Mangle" \
+    org.label-schema.name="TProxy-MANGLE" \
     org.label-schema.vcs-url="https://github.com/LASER-Yi/Dockerfiles"
 
 COPY root /
 
-RUN apk add --no-cache ipset iptables curl \
+RUN apk add --no-cache iptables \
     && chmod +x /usr/bin/start-mangle /usr/bin/stop-mangle
 
 ENV ROUTE_RULE=local \
