@@ -25,12 +25,6 @@ jobs:
                 qemu-version: latest
             - name: Login
               run: docker login -u ${{secrets.DOCKER_ID}} -p ${{secrets.DOCKER_PWD}}
-            - name: Build & Push
-              run: docker buildx build 
-               --platform=linux/amd64,linux/arm/v7,linux/arm64 
-               --tag $REPO_NAME:latest 
-               --push 
-               ./tproxy/legacy
             - name: Build TUN & Push
               run: docker buildx build 
                --platform=linux/amd64,linux/arm/v7,linux/arm64 
