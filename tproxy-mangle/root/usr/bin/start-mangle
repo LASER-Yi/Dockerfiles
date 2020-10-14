@@ -7,7 +7,7 @@ sigterm_handler() {
 exit 143;
 }
 
-/usr/bin/stop-mangle >> /dev/null 2>&1
+sh /usr/bin/stop-mangle >> /dev/null 2>&1
 
 set -eu
 
