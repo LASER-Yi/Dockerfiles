@@ -1,7 +1,7 @@
 FROM alpine:latest as compileOS
 
-ENV QBITTORRENT_VERSION=4.3.0.10 \
-    LIBTORRENT_VERSION=1.2.10
+ENV QBITTORRENT_VERSION=4.3.1.10 \
+    LIBTORRENT_VERSION=2.0.1
 
 ADD https://github.com/c0re100/qBittorrent-Enhanced-Edition/archive/release-${QBITTORRENT_VERSION}.zip /
 ADD https://github.com/arvidn/libtorrent/releases/download/libtorrent-${LIBTORRENT_VERSION}/libtorrent-rasterbar-${LIBTORRENT_VERSION}.tar.gz /
