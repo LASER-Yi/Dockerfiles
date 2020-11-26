@@ -4,7 +4,7 @@ ENV QBITTORRENT_VERSION=4.3.1.10 \
     LIBTORRENT_VERSION=2.0.1
 
 ADD https://github.com/c0re100/qBittorrent-Enhanced-Edition/archive/release-${QBITTORRENT_VERSION}.zip /
-ADD https://github.com/arvidn/libtorrent/releases/download/libtorrent-${LIBTORRENT_VERSION}/libtorrent-rasterbar-${LIBTORRENT_VERSION}.tar.gz /
+ADD https://github.com/arvidn/libtorrent/releases/download/v${LIBTORRENT_VERSION}/libtorrent-rasterbar-${LIBTORRENT_VERSION}.tar.gz /
 
 RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.tuna.tsinghua.edu.cn/g' /etc/apk/repositories
 
