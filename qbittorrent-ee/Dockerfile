@@ -8,7 +8,7 @@ ADD https://github.com/arvidn/libtorrent/releases/download/v${LIBTORRENT_VERSION
 
 RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.tuna.tsinghua.edu.cn/g' /etc/apk/repositories
 
-RUN apk add --no-cache ca-certificates build-base qt5-qtsvg-dev boost-dev qt5-qttools-dev file \
+RUN apk add --no-cache ca-certificates build-base boost-dev qt5-qtsvg-dev qt5-qttools-dev qt5-qtbase-dev qt5-qtbase-sqlite file \
 &&  mkdir /sources
 
 # libtorrent
