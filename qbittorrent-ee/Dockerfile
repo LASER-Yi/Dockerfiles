@@ -1,6 +1,6 @@
 FROM alpine:latest as compileOS
 
-ENV QBITTORRENT_VERSION=4.3.1.10 \
+ENV QBITTORRENT_VERSION=4.3.1.11 \
     LIBTORRENT_VERSION=1.2.11
 
 ADD https://github.com/c0re100/qBittorrent-Enhanced-Edition/archive/release-${QBITTORRENT_VERSION}.zip /
@@ -8,7 +8,7 @@ ADD https://github.com/arvidn/libtorrent/releases/download/v${LIBTORRENT_VERSION
 
 RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.tuna.tsinghua.edu.cn/g' /etc/apk/repositories
 
-RUN apk add --no-cache ca-certificates build-base boost-dev qt5-qtsvg-dev qt5-qttools-dev qt5-qtbase-dev qt5-qtbase-sqlite file \
+RUN apk add --no-cache ca-certificates build-base boost-dev qt5-qtsvg-dev qt5-qttools-dev qt5-qtbase-dev file \
 &&  mkdir /sources
 
 # libtorrent
