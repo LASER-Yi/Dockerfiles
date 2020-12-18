@@ -9,9 +9,7 @@ cp /usr/share/zoneinfo/${TZ} /etc/localtime
 echo "${TZ}" > /etc/timezone
 
 # user and priv
-mkdir -p \
-    /config/qBittorrent \
-    /downloads
+mkdir -p /config/qBittorrent/config/
 
 [[ ! -f /config/qBittorrent/config/qBittorrent.conf ]] && \
         cp /etc/defaults/qBittorrent.conf /config/qBittorrent/config/
