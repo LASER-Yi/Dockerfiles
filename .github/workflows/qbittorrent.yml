@@ -26,14 +26,12 @@ jobs:
             - name: Build & Push
               run: docker buildx build 
                --platform=linux/amd64
-              #  ,linux/arm/v7,linux/arm64 
                --tag $REPO_NAME:latest 
                --push 
                ./qbittorrent-ee 
             - name: Build Python version & Push
               run: docker buildx build 
                --platform=linux/amd64
-              #  ,linux/arm/v7,linux/arm64 
                --tag $REPO_NAME:latest-python3 
                --push 
                ./qbittorrent-ee 
