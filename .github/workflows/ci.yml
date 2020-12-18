@@ -11,6 +11,14 @@ on:
 
 
 jobs: 
+    qbittorrent:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v2
+            - name: Vaild
+              run: docker build ./qbittorrent-ee
+
     shadowsocks-libev:
         runs-on: ubuntu-latest
         steps:

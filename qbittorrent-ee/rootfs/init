@@ -10,13 +10,13 @@ echo "${TZ}" > /etc/timezone
 
 # user and priv
 mkdir -p \
-    /config/.config/qBittorrent \
+    /config/config/qBittorrent \
     /downloads
 
-[[ ! -f /config/.config/qBittorrent/qBittorrent.conf ]] && \
-        cp /etc/defaults/qBittorrent.conf /config/.config/qBittorrent/
+[[ ! -f /config/config/qBittorrent.conf ]] && \
+        cp /etc/defaults/qBittorrent.conf /config/config/
 
-sed -i "s|Connection\\\PortRangeMin=.*|Connection\\\PortRangeMin=${PEER_PORT}|i" /config/.config/qBittorrent/qBittorrent.conf
+sed -i "s|Connection\\\PortRangeMin=.*|Connection\\\PortRangeMin=${PEER_PORT}|i" /config/config/qBittorrent.conf
 
 chown -R ${UID}:${GID} /config
 
@@ -24,6 +24,4 @@ chown -R ${UID}:${GID} /config
 UMASK=${UMASK:-022}
 umask "$UMASK"
 
-export HOME="/config"
-
-exec s6-setuidgid ${UID}:${GID} qbittorrent-nox --webui-port=${WEBUI_PORT:-8989}
+exec s6-setuidgid ${UID}:${GID} qbittorrent-nox --webui-port=${WEBUI_PORT:-8989} --profile=/config

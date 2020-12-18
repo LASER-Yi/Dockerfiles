@@ -18,8 +18,6 @@
 ### qBittorrent-ee
 > [qBittorrent-Enhanced-Edition](https://github.com/c0re100/qBittorrent-Enhanced-Edition)  multi-arch support
 
-**No longer maintaind!!!!! Please use superng6/qbittorrentee for future update**
-
 ### Shadowsocks-libev
 > Shadowsocks-libev multi-arch support
 
