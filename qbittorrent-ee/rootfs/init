@@ -10,13 +10,13 @@ echo "${TZ}" > /etc/timezone
 
 # user and priv
 mkdir -p \
-    /config/config/qBittorrent \
+    /config/qBittorrent \
     /downloads
 
-[[ ! -f /config/config/qBittorrent.conf ]] && \
-        cp /etc/defaults/qBittorrent.conf /config/config/
+[[ ! -f /config/qBittorrent/config/qBittorrent.conf ]] && \
+        cp /etc/defaults/qBittorrent.conf /config/qBittorrent/config/
 
-sed -i "s|Connection\\\PortRangeMin=.*|Connection\\\PortRangeMin=${PEER_PORT}|i" /config/config/qBittorrent.conf
+sed -i "s|Connection\\\PortRangeMin=.*|Connection\\\PortRangeMin=${PEER_PORT}|i" /config/qBittorrent/config/qBittorrent.conf
 
 chown -R ${UID}:${GID} /config
 

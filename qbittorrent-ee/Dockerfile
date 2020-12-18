@@ -38,7 +38,7 @@ RUN apk add --no-cache tzdata curl s6 \
     && rm -rf /tmp/* \
     && mv qbittorrent-nox /usr/local/bin
 
-VOLUME /config
+VOLUME /config/qBittorrent
 
 # donot expose port cause we are using host network
 EXPOSE $WEBUI_PORT  $PEER_PORT  $PEER_PORT/udp
