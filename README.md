@@ -1,5 +1,4 @@
 # Dockerfiles
-![CI](https://github.com/LASER-Yi/Dockerfiles/workflows/CI/badge.svg)
 ![QB](https://github.com/LASER-Yi/Dockerfiles/workflows/qBittorrent/badge.svg)
 ![SS](https://github.com/LASER-Yi/Dockerfiles/workflows/Shadowsocks-libev/badge.svg)
 ![TP](https://github.com/LASER-Yi/Dockerfiles/workflows/TProxy/badge.svg)
