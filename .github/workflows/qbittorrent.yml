@@ -1,12 +1,12 @@
 name: qBittorrent
 
 on:
-    push:
-        branches:
-            - master
-        paths:
-            - qbittorrent-ee/**
-            - .github/workflows/qbittorrent.yml
+    # push:
+    #     branches:
+    #         - master
+    #     paths:
+    #         - qbittorrent-ee/**
+    #         - .github/workflows/qbittorrent.yml
 
 env:
     REPO_NAME: ly0007/qbittorrent-ee
