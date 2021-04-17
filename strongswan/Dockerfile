@@ -12,7 +12,7 @@ RUN apk add --no-cache --virtual .build-deps \
         linux-headers \
         openssl-dev && \
     mkdir -p /tmp/strongswan && \
-    curl -Lo /tmp/strongswan.tar.bz2 https://download.strongswan.org/strongswan-5.9.0.tar.bz2 && \
+    curl -Lo /tmp/strongswan.tar.bz2 https://download.strongswan.org/strongswan-5.9.2.tar.bz2 && \
     tar --strip-components=1 -C /tmp/strongswan -xjf /tmp/strongswan.tar.bz2 && \
     cd /tmp/strongswan && \
     ./configure --prefix=/usr --sysconfdir=/config --libexecdir=/usr/lib --with-ipsecdir=/usr/lib/strongswan \
