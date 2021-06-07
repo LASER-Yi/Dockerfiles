@@ -6,7 +6,7 @@ RUN wget https://github.com/raspberrypi/firmware/archive/master.zip \
     && unzip master.zip 'firmware-master/opt/*' -d . \
     && mv firmware-master/opt/vc/ /opt
 
-RUN git clone --depth=1 https://github.com/FD-/RPiPlay.git \
+RUN git clone --depth 1 https://github.com/FD-/RPiPlay.git \
     pushd RPiPlay \
     mkdir build \
     cp /usr/lib/arm-linux-gnueabihf/libdns_sd.so.1 ./build/ \
