@@ -1,6 +1,6 @@
 FROM debian:latest as compileOS
 
-RUN apt update && api install -y git cmake libavahi-compat-libdnssd-dev libplist-dev libssl-dev g++ wget zip
+RUN apt update && apt install -y git cmake libavahi-compat-libdnssd-dev libplist-dev libssl-dev g++ wget zip
 
 RUN wget https://github.com/raspberrypi/firmware/archive/master.zip \
     && unzip master.zip 'firmware-master/opt/*' -d . \
