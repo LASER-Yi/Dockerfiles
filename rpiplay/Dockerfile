@@ -9,8 +9,6 @@ RUN wget https://github.com/raspberrypi/firmware/archive/master.zip \
 RUN git clone --depth 1 https://github.com/FD-/RPiPlay.git \
     && cd RPiPlay \
     && mkdir build \
-    && cp /usr/lib/arm-linux-gnueabihf/libdns_sd.so.1 ./build/ \
-    && printf "\nadd_library(dns_sd SHARED IMPORTED GLOBAL)\nset_target_properties(dns_sd PROPERTIES IMPORTED_LOCATION \"./libdns_sd.so.1\")\n" >>./lib/CMakeLists.txt \
     && cd build \
     && cmake .. \
     && make
