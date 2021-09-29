@@ -1,26 +1,26 @@
 name: SmartDNS
 
 on:
-schedule:
+  schedule:
     - cron: '0 0 2 * *'
   workflow_dispatch:
 
 env:
-    REPO_NAME: ly0007/smartdns
+  REPO_NAME: ly0007/smartdns
 
 jobs:
-    Build:
-        runs-on: ubuntu-latest
-        steps:
-            - name: Checkout
-              uses: actions/checkout@v2
-            - name: Setup BuildX
-              uses: docker/setup-buildx-action@v1
-            - name: Login
-              run: docker login -u ${{secrets.DOCKER_ID}} -p ${{secrets.DOCKER_PWD}}
-            - name: Build & Push
-              run: docker buildx build 
-               --platform=linux/amd64,linux/arm/v7,linux/arm64 
-               --tag $REPO_NAME:latest 
-               --push 
-               ./smartdns
+  Build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup BuildX
+        uses: docker/setup-buildx-action@v1
+      - name: Login
+        run: docker login -u ${{secrets.DOCKER_ID}} -p ${{secrets.DOCKER_PWD}}
+      - name: Build & Push
+        run: docker buildx build
+          --platform=linux/amd64,linux/arm/v7,linux/arm64
+          --tag $REPO_NAME:latest
+          --push
+          ./smartdns
