@@ -1,39 +1,37 @@
 name: qBittorrent
 
-on: workflow_dispatch
-    # push:
-    #     branches:
-    #         - master
-    #     paths:
-    #         - qbittorrent-ee/**
-    #         - .github/workflows/qbittorrent.yml
+on:
+  workflow_dispatch
+  # push:
+  #     branches:
+  #         - master
+  #     paths:
+  #         - qbittorrent-ee/**
+  #         - .github/workflows/qbittorrent.yml
 
 env:
-    REPO_NAME: ly0007/qbittorrent-ee
+  REPO_NAME: ly0007/qbittorrent-ee
 
 jobs:
-    Build:
-        runs-on: ubuntu-latest
-        steps:
-            - name: Checkout
-              uses: actions/checkout@v2
-            - name: Set up QEMU
-              uses: docker/setup-qemu-action@v1
-            - name: Setup BuildX
-              uses: docker/setup-buildx-action@v1
-            - name: Login
-              run: docker login -u ${{secrets.DOCKER_ID}} -p ${{secrets.DOCKER_PWD}}
-            - name: Build & Push
-              run: docker buildx build 
-               --platform=linux/amd64
-               --tag $REPO_NAME:latest 
-               --push 
-               ./qbittorrent-ee 
-            - name: Build Python version & Push
-              run: docker buildx build 
-               --platform=linux/amd64
-               --tag $REPO_NAME:latest-python3 
-               --push 
-               ./qbittorrent-ee 
-               -f ./qbittorrent-ee/Dockerfile.python3.build 
-
+  Build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup BuildX
+        uses: docker/setup-buildx-action@v1
+      - name: Login
+        run: docker login -u ${{secrets.DOCKER_ID}} -p ${{secrets.DOCKER_PWD}}
+      - name: Build & Push
+        run: docker buildx build
+          --platform=linux/amd64
+          --tag $REPO_NAME:latest
+          --push
+          ./qbittorrent-ee
+      - name: Build Python version & Push
+        run: docker buildx build
+          --platform=linux/amd64
+          --tag $REPO_NAME:latest-python3
+          --push
+          ./qbittorrent-ee
+          -f ./qbittorrent-ee/Dockerfile.python3.build
