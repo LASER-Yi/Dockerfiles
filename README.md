@@ -1,7 +1,6 @@
 # Dockerfiles
 
 ![QB](https://github.com/LASER-Yi/Dockerfiles/workflows/qBittorrent/badge.svg)
-![SS](https://github.com/LASER-Yi/Dockerfiles/workflows/Shadowsocks-libev/badge.svg)
 ![TP](https://github.com/LASER-Yi/Dockerfiles/workflows/TProxy/badge.svg)
 
 🐳 A collection of Dockerfile build for raspberrypi and other platforms
@@ -18,22 +17,6 @@
 ### qBittorrent-ee
 
 > [qBittorrent-Enhanced-Edition](https://github.com/c0re100/qBittorrent-Enhanced-Edition) multi-arch support
-
-### Shadowsocks-libev
-
-> Shadowsocks-libev multi-arch support
-
-**No longer maintaind**
-
-Both SS & SSR version are included in this image
-
-```
-docker pull ly0007/shadowsocks-libev:latest
-```
-
-```
-docker pull ly0007/shadowsocks-libev:latest-ssr
-```
 
 ### TProxy
 
