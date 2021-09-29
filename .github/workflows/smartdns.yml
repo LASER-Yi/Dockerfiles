@@ -1,12 +1,9 @@
 name: SmartDNS
 
 on:
-    push:
-        branches:
-            - master
-        paths:
-            - smartdns/**
-            - .github/workflows/smartdns.yml
+schedule:
+    - cron: '0 0 2 * *'
+  workflow_dispatch:
 
 env:
     REPO_NAME: ly0007/smartdns
