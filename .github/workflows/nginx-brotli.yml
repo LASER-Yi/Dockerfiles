@@ -1,0 +1,31 @@
+name: nginx-brotli
+
+on:
+  schedule:
+    - cron: '0 0 1 * *'
+  workflow_dispatch:
+
+env:
+  REPO_NAME: ly0007/nginx
+
+jobs:
+  Build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        repository: 'nginxinc/docker-nginx'
+
+      - name: Setup BuildX
+        uses: docker/setup-buildx-action@v1
+
+      - name: Login
+        run: docker login -u ${{secrets.DOCKER_ID}} -p ${{secrets.DOCKER_PWD}}
+
+      - name: Build & Push
+        run: docker buildx build
+          --build-arg ENABLED_MODULES="brotli"
+          --platform=linux/amd64,linux/arm64
+          --tag $REPO_NAME:alpine
+          --push
+          ./mainline/alpine
