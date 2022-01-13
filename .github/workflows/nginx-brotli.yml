@@ -14,7 +14,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-        repository: 'nginxinc/docker-nginx'
+        with:
+          repository: 'nginxinc/docker-nginx'
 
       - name: Setup BuildX
         uses: docker/setup-buildx-action@v1
