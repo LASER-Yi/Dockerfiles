@@ -29,4 +29,5 @@ jobs:
           --platform=linux/amd64
           --tag $REPO_NAME:alpine
           --push
-          ./modules/Dockerfile.alpine
+          -f Dockerfile.alpine
+          ./modules
