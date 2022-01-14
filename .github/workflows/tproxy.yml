@@ -10,35 +10,38 @@ on:
 
 env:
   REPO_NAME: ly0007/tproxy
-
+  BUILD_PLATFORM: linux/amd64,linux/arm/v7,linux/arm64
+  
 jobs:
   Build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+        
       - name: Setup BuildX
-        uses: crazy-max/ghaction-docker-buildx@v3
-        with:
-          buildx-version: latest
-          qemu-version: latest
+        uses: docker/setup-buildx-action@v1
+          
       - name: Login
         run: docker login -u ${{secrets.DOCKER_ID}} -p ${{secrets.DOCKER_PWD}}
+        
       - name: Build TUN & Push
         run: docker buildx build
-          --platform=linux/amd64,linux/arm/v7,linux/arm64
+          --platform=$BUILD_PLATFORM
           --tag $REPO_NAME:tun
           --push
           ./tproxy/tun
+          
       - name: Build Mangle & Push
         run: docker buildx build
-          --platform=linux/amd64,linux/arm/v7,linux/arm64
+          --platform=$BUILD_PLATFORM
           --tag $REPO_NAME:mangle
           --push
           ./tproxy/mangle
+          
       - name: Build NAT & Push
         run: docker buildx build
-          --platform=linux/amd64,linux/arm/v7,linux/arm64
+          --platform=$BUILD_PLATFORM
           --tag $REPO_NAME:nat
           --push
           ./tproxy/nat
