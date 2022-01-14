@@ -7,6 +7,8 @@ on:
 
 env:
   REPO_NAME: ly0007/nginx
+  # BUILD_PLATFORM: linux/amd64,linux/arm/v7,linux/arm64
+  BUILD_PLATFORM: linux/amd64
 
 jobs:
   Build:
@@ -26,7 +28,7 @@ jobs:
       - name: Build Debian & Push
         run: docker buildx build
           --build-arg ENABLED_MODULES="brotli"
-          --platform=linux/amd64,linux/arm/v7,linux/arm64
+          --platform=$BUILD_PLATFORM
           --tag $REPO_NAME:latest
           --push
           ./modules
@@ -34,7 +36,7 @@ jobs:
       - name: Build Alpine & Push
         run: docker buildx build
           --build-arg ENABLED_MODULES="brotli"
-          --platform=linux/amd64,linux/arm/v7,linux/arm64
+          --platform=$BUILD_PLATFORM
           --tag $REPO_NAME:alpine
           --push
           ./modules/Dockerfile.alpine
